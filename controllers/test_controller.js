@@ -1,5 +1,4 @@
 require("dotenv").config();
-const shajs = require("sha.js");
 const axios = require("axios");
 const crypto = require("crypto");
 
