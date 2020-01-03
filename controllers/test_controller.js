@@ -9,8 +9,8 @@ module.exports.test = (req, res) => {
   let endpoint = "contest.hacks";
   let text = `${random}/${endpoint}?apiKey=${process.env.CODEFORCES_KEY}&contestId=${contestId}&time=${time}#${process.env.CODEFORCES_SECRET}`;
 
-  var sha = crypto.createHash("sha512").update(String(text));
-  var result = sha.digest("hex");
+  let sha = crypto.createHash("sha512").update(String(text));
+  let result = sha.digest("hex");
 
   let baseurl = `https://codeforces.com/api/${endpoint}?apiKey=${process.env.CODEFORCES_KEY}&contestId=${contestId}&time=${time}`;
   let apiSig = `${random}${result}`;
