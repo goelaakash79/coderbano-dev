@@ -23,3 +23,15 @@ module.exports.test = (req, res) => {
     .catch(err => console.log(err));
   return res.status(200).json({ message: "" });
 };
+
+module.exports.rohan = async (req, res) => {
+    const {data} = await axios.get("https://codeforces.com/api/user.status?handle=rhnmht30&from=1&count=10");
+    // console.log(data);
+    res.json({data})
+}   
+
+module.exports.anshul = async (req, res) => {
+    const {data} = await axios.get("https://codeforces.com/api/user.status?handle=Anshul1507&from=1&count=10");
+    // console.log(data);
+    res.json({data})
+}   
