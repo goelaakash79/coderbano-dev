@@ -20,7 +20,7 @@ const User = require("./models/User");
 const Problem = require("./models/Problem");
 
 // Routes
-app.use("/api/v1/users", require("./routes/api/v1/users"));
+app.use("/api/v1/auth", require("./routes/api/v1/auth"));
 app.use("/test", require("./routes/api/v1/test"));
 
 // app.use(express.static(path.join(__dirname, 'client/build')))
