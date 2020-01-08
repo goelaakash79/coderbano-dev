@@ -1,0 +1,53 @@
+.highlight {
+  font-family: GoogleSansBd;
+  /* color: #DB4437; */
+  background-color: #F4B400;
+  color: #0F9D58;
+}
+
+input {
+  border: 0;
+}
+
+.unlock-button {
+  padding: 6px 12px;
+  background: #ffffff;
+  color: #3c83da;
+  font-family: GoogleSansBd;
+  border: 0;
+  border-radius: 2px;
+  transition: 0.2s all linear;
+}
+
+a {
+  color: white;
+}
+
+a:hover{
+    color: white;
+    text-decoration: none;
+}
+
+.button:hover {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.16), 0px 2px 4px rgba(0, 0, 0, 0.23);
+}
+
+.ladder-card{
+  color: #ffffff;
+  border: 0;
+  background: #3c83da;
+}
+
+.continue-div {
+    color: #ffffff;
+    border: 0;
+    background: #0F9D58;
+}
+
+.green {
+  color: #0F9D58;
+}
+
+.stats-wrapper {
+  /* background: #d5d5d5; */
+}
