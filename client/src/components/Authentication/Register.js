@@ -1,19 +1,13 @@
 import React from "react";
 // import { Row, Col, Container } from "react-bootstrap";
 import "./style.css";
-import sideImage from "../../utils/images/side-image.png";
+import Common from "./Common";
 
 function Register() {
   return (
     <div className="container">
       <div className="row pt-5 mt-5 mb-5 pb-5">
-        <div className="col-md-7">
-          <img src={sideImage} alt="" width="100%" />
-          <h3 className="fontRg mt-4 mb-0 title">coderbano {"💻"}</h3>
-          <p className="fontBd tagline">
-            a tribute to A2OJ; curated during nights
-          </p>
-        </div>
+        <Common/>
         <div className="col-md-5">
           <div class="card register-box p-4">
             <h5 className="fontBd">Become a coder</h5>
