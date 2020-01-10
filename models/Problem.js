@@ -9,4 +9,4 @@ const problemSchema = new mongoose.Schema({
     level: Number
 });
 
-module.exports = User = mongoose.model('problem', problemSchema);
+module.exports = Problem = mongoose.model('problem', problemSchema);
