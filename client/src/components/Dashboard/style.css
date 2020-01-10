@@ -48,6 +48,36 @@ a:hover{
   color: #0F9D58;
 }
 
+tbody tr:nth-of-type(even) {
+  background-color: #f1f1f1;
+}
+
+.table {
+  border-radius: 8px!important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);
+  border:0;
+}
+
+table {
+  border-radius: 8px;
+}
+
+thead {
+  background-color: #3c83da;
+  color: #ffffff;
+  border-radius: 8px!important;
+}
+
+thead tr {
+  border-radius: 8px;
+
+}
+
+thead tr th {
+  font-family: GoogleSansBd;
+  font-weight: 400;
+}
+
 .stats-wrapper {
   /* background: #d5d5d5; */
 }
