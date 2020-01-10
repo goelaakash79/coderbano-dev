@@ -16,11 +16,11 @@ module.exports.catchErrors = middlewareFunction => {
 	};
 };
 
-//for routes which are not found
-module.exports.notFoundError = (req, res, next) => {
-	const err = new Error("Not Found");
-	err.status = 404;
-	next(err);
+// not found routes
+module.exports.notFound = (req, res) => {
+	res.status(404).json({
+		message: "Welcome to the API!! This route does not exist"
+	});
 };
 
 module.exports.sendErrors = (err, req, res, next) => {
