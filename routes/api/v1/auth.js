@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const { auth } = require("../../../middlewares/auth");
 const { login, register } = require("../../../controllers/auth_controller");
+const { catchErrors } = require("../../../config/errorHandler");
 
-router.get("/login", login);
-router.get("/register", register);
+router.get("/login", catchErrors(login));
+router.get("/register", catchErrors(register));
 
 module.exports = router;
