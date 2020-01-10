@@ -2,6 +2,7 @@ import React from "react";
 // import { Row, Col, Container } from "react-bootstrap";
 import "./style.css";
 import Common from "./Common";
+import { FaGhost } from "react-icons/fa";
 
 function Register() {
   return (
@@ -9,7 +10,7 @@ function Register() {
       <div className="row pt-5 mt-5 mb-5 pb-5">
         <Common/>
         <div className="col-md-5">
-          <div class="card register-box p-4">
+          <div className="card register-box p-4 mb-4">
             <h5 className="fontBd">Become a coder</h5>
             <p className="fontMd mb-1 mt-4">Enter details</p>
             <form method="post">
@@ -47,6 +48,7 @@ function Register() {
               {/* <h5 className="text-center hint mb-0">Follow us on twitter</h5> */}
             </form>
           </div>
+          <div className="stalk-friend col-12"><FaGhost/> Stalk your friend</div>
         </div>
       </div>
 

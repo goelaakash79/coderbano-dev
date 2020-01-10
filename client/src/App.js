@@ -8,6 +8,7 @@ import Login from "./components/Authentication/Login";
 
 import Dashboard from "./components/Dashboard/Dashboard";
 import Ladder from "./components/Dashboard/Ladder";
+import StalkFriend from "./components/Friend/StalkFriend";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route exact path="/login" component={Login}/>
         <Route exact path="/" component={Dashboard}/>
         <Route exact path="/ladder" component={Ladder}/>
+        <Route exact path="/stalk-friend" component={StalkFriend}/>
       </Switch>
     </Router>
   );
