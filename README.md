@@ -9,3 +9,4 @@
 2. Add `PORT=3000` and `MONGO_URI=YOUR_MONGO_DB_PATH` in .env
 3. Run `npm i`
 4. Run `npm start`
+5. To run client, use `./run.sh`
