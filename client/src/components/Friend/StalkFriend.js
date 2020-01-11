@@ -33,7 +33,10 @@ function StalkFriend() {
 						Joined: Date
 						<br />
 						Last Online: date, time
+
+						<h6 className="mt-2 fontBd">more information...</h6>
 					</div>
+
 				</div>
 				<div className="col-lg-8 col-md-6">
 					<div className="recent-actions profile-details p-4">
