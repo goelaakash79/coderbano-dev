@@ -33,9 +33,13 @@ app.use(
 // load schemas
 const User = require("./models/User");
 const Problem = require("./models/Problem");
+const Stats = require("./models/Stats");
+const Submissions = require("./models/Submissions");
 
 // Routes
 app.use("/api/v1/auth", require("./routes/api/v1/auth"));
+app.use("/api/v1/users", require("./routes/api/v1/users"));
+
 app.use("/test", require("./routes/api/v1/test"));
 
 app.use("*", notFound);
