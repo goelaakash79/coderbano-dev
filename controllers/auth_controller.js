@@ -1,41 +1,24 @@
 require("dotenv").config();
 const bcrypt = require("bcryptjs");
-const axios = require("axios");
 
 module.exports.register = async (req, res) => {
 	let { handle, email, password } = req.body;
-	let api;
-	try {
-		api = await axios.get(
-			`https://codeforces.com/api/user.info?handles=${handle}`
-		);
-	} catch (err) {
-		api = err.response;
-	}
-	if (api.data.status === "OK") {
-		let user = await User.findOne({ $or: [{ email }, { handle }] });
-		if (user) {
-			return res.status(406).json({
-				message: "Email/Handle already in use",
-				error: false,
-				data: null
-			});
-		} else {
-			let salt = await bcrypt.genSalt();
-			password = await bcrypt.hash(password, salt);
-			let newUser = { handle, password, email };
-			await User.create(newUser);
-			return res.status(200).json({
-				message: "success",
-				error: false,
-				data: null
-			});
-		}
+	let user = await User.findOne({ $or: [{ email }, { handle }] });
+	if (user) {
+		return res.status(406).json({
+			message: "Email/Handle already in use",
+			error: false,
+			data: null
+		});
 	} else {
-		res.status(406).json({
-			message: "Invalid Codeforces handle",
-			error: true,
-			data: api.data
+		let salt = await bcrypt.genSalt();
+		password = await bcrypt.hash(password, salt);
+		let newUser = { handle, password, email };
+		await User.create(newUser);
+		return res.status(200).json({
+			message: "success",
+			error: false,
+			data: null
 		});
 	}
 };
@@ -54,7 +37,7 @@ module.exports.login = async (req, res) => {
 					.json({
 						message: "success",
 						error: false,
-						data: { user, token }
+						data: user
 					});
 			} else {
 				return res.status(200).json({
