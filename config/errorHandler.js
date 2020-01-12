@@ -30,7 +30,7 @@ module.exports.catchErrors = middlewareFunction => {
 // not found routes
 module.exports.notFound = (req, res) => {
 	logger = log4js.getLogger("Wrong endpoint request");
-	logger.info(`${req.path} has been hit`);
+	logger.info(`${req.params[0]} has been hit`);
 	res.status(404).json({
 		message: "welcome to the coderbano api! this endpoint is null"
 	});
@@ -47,6 +47,6 @@ module.exports.sendErrors = (err, req, res, next) => {
 	console.log(err.stack);
 	//sending error to frontend
 	logger = log4js.getLogger("Logs from sendErrors middleware");
-	logger.error(errorDetailsToSend)
+	logger.error(errorDetailsToSend);
 	res.status(err.status || 500).json(errorDetailsToSend);
 };
