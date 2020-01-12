@@ -1,5 +1,5 @@
 {
-  "name": "open-source-online-judge",
+  "name": "coderbano-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -20,6 +20,7 @@
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1",
+    "log4js": "^6.1.0",
     "mongoose": "^5.4.21",
     "morgan": "^1.9.1"
   }

@@ -1,8 +1,58 @@
-.friend-image{
-    border-radius: 50%;
+.friend-image {
+	border-radius: 50%;
 }
 
-.basic-details{
-    display: flex;
-    flex-direction: row;
+.basic-details {
+	/* display: flex;
+    flex-direction: row; */
+}
+
+.profile-details {
+	/* border: 1px solid #f1f1f1; */
+	border-radius: 6px;
+	background-color: #ffffff;
+}
+
+.action-ok {
+	/* background-color: #3c83da; */
+	background-color: rgba(15, 157, 88, 0.05);
+	border-radius: 4px;
+	transition: 0.2s all cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+
+.action-not-ok {
+	background-color: rgba(219, 68, 55, 0.05);
+	border-radius: 4px;
+	transition: 0.2s all cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+
+.action-status {
+	color: #0f9d58;
+}
+
+.action-status-wrong {
+	color: #db4437;
+}
+
+.language {
+	padding: 4px 8px;
+	background: #0f9d58;
+	font-size: 12px;
+	color: #ffffff;
+	border-radius: 4px;
+}
+
+.time-ago {
+	float: right;
+}
+
+.floatRt {
+	float: Right;
+}
+
+.action-ok:hover,
+.action-not-ok:hover {
+	transition: 0.2s all cubic-bezier(0.6, -0.28, 0.735, 0.045);
+	background-color: #3c83da;
+	color: #ffffff;
 }
