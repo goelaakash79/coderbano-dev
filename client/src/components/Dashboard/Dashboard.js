@@ -3,7 +3,7 @@ import "./style.css";
 // import { Link } from "react-router-dom";
 import { FaLock, FaKeyboard, FaGhost } from "react-icons/fa";
 
-function Dashboard() {
+const Dashboard = () => {
 
   const handleStalkDost = () => {
     let {history} = this.props;

@@ -4,7 +4,7 @@ import "./style.css";
 import Common from "./Common";
 import { FaGhost } from "react-icons/fa";
 
-function Register() {
+const Register = () => {
   return (
     <div className="container">
       <div className="row pt-5 mt-5 mb-5 pb-5">

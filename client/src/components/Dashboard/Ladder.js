@@ -1,6 +1,6 @@
 import React from "react";
 
-function Ladder() {
+const Ladder = () => {
 	return (
 		<div className="container">
 			<h4 className="mt-5 fontBd">Ladder: <span className="div-name">Div. 2.A</span></h4>

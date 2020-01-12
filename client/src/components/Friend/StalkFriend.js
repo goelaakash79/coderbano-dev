@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 import { FaCheck, FaExclamationTriangle } from "react-icons/fa";
 
-function StalkFriend() {
+const StalkFriend = () => {
 	return (
 		<div className="container">
 			<h4 className="mt-5 fontBd">Stalking Friend</h4>
