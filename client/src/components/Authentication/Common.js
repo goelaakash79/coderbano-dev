@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 import sideImage from "../../utils/images/side-image.png";
 
-function Common() {
+const Common = () => {
     return(
         <div className="col-md-7">
           <img src={sideImage} alt="" width="100%" />

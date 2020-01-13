@@ -2,14 +2,14 @@ import React from "react";
 import "./style.css";
 import { FaCheck, FaExclamationTriangle } from "react-icons/fa";
 
-function StalkFriend() {
+const StalkFriend = () => {
 	return (
 		<div className="container">
 			<h4 className="mt-5 fontBd">Stalking Friend</h4>
 			<hr />
 			<div className="row mt-5">
 				<div className="col-lg-4 col-md-6">
-					<div class="profile-details p-4">
+					<div className="profile-details p-4">
 						<div className="row">
 							<div className="col-4">
 								<img
@@ -27,8 +27,8 @@ function StalkFriend() {
 						</div>
 						KIET Group of Institutions
 						<hr />
-						<h6 class="fontMd mb-1">Rating: 1456 (Newbie)</h6>
-						<h6 class="fontMd mb-3">Max-Rating: 1456 (Newbie)</h6>
+						<h6 className="fontMd mb-1">Rating: 1456 (Newbie)</h6>
+						<h6 className="fontMd mb-3">Max-Rating: 1456 (Newbie)</h6>
 						<hr />
 						Joined: Date
 						<br />
