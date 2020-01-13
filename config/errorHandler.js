@@ -38,8 +38,8 @@ module.exports.notFound = (req, res) => {
 
 module.exports.sendErrors = (err, req, res, next) => {
 	const errorDetailsToSend = {
-		message: err.message,
-		status: err.status || 500,
+		message: err.isAxiosError ? err.response.data.comment : err.message,
+		status: err.isAxiosError ? err.response.status : err.status || 500,
 		error: true
 	};
 	//logging error for backend console
