@@ -34,14 +34,13 @@ module.exports.getLadder = async (req, res) => {
 		match: { div }
 	});
 	divSubs = allSubs.filter(sub => sub.problem !== null);
-	let solvedDivSubs = divSubs.filter(sub => sub.verdict === "OK");
 
 	//get all problems to check further
 	let problems = await Problem.find({ div }).sort({ id: "asc" });
 
 	//get all CFs submissions of this user
 	const response = await axios.get(
-		"https://codeforces.com/api/user.status?handle=rhnmht30&from=1"
+		"https://codeforces.com/api/user.status?handle=ahmed_aly&from=1"
 	);
 	let codeforcesSubs = response.data.result;
 
@@ -54,10 +53,11 @@ module.exports.getLadder = async (req, res) => {
 	}
 
 	let newSubs = [],
-		prevUdpation = false;
+		prevUdpation = false,
+		subs = [];
 	//collecting all subs from CFs to own dB
 	for (let i = probIndex; i < problems.length; i++) {
-		let allSubs = [];
+		let collectSubs = [];
 		for (let j = 0; j < codeforcesSubs.length; j++) {
 			//find subs for this problem found in CF db
 			if (codeforcesSubs[j].problem.name === problems[i].name) {
@@ -76,7 +76,7 @@ module.exports.getLadder = async (req, res) => {
 						).toISOString()
 					) {
 						//collect CF subs for batch updation
-						allSubs.push(codeforcesSubs[j]);
+						collectSubs.push(codeforcesSubs[j]);
 						prevUdpation = true;
 					} else {
 						//not modified, no updation required
@@ -85,7 +85,8 @@ module.exports.getLadder = async (req, res) => {
 				} else {
 					//we don't have that CF sub in our db
 					//get new submisssions ready
-					allSubs.push(codeforcesSubs[j]);
+					collectSubs.push(codeforcesSubs[j]);
+					prevUdpation = false;
 					// possible optimisation:
 					// 1. we are iterating over every sub just to get the problem attempts count
 					// 2. if that increases server time cost, we can remove it
@@ -93,19 +94,21 @@ module.exports.getLadder = async (req, res) => {
 				}
 			}
 		}
-		if (allSubs.length !== 0) {
+		if (collectSubs.length !== 0) {
 			if (prevUdpation) {
 				let updatedSub = {
 					user: req.user.id,
 					problem: problems[i]._id,
 					status:
-						allSubs[0].verdict === "OK" ? "solved" : "attempted",
+						collectSubs[0].verdict === "OK"
+							? "solved"
+							: "attempted",
 					lastAttemptTime: new Date(
-						allSubs[0].creationTimeSeconds * 1000
+						collectSubs[0].creationTimeSeconds * 1000
 					).toISOString(),
-					attempts: latestSubmission.attempts + allSubs.length,
-					language: allSubs[0].programmingLanguage,
-					verdict: allSubs[0].verdict
+					attempts: latestSubmission.attempts + collectSubs.length,
+					language: collectSubs[0].programmingLanguage,
+					verdict: collectSubs[0].verdict
 				};
 				let newLatestSub = await Submissions.findByIdAndUpdate(
 					latestSubmission._id,
@@ -117,13 +120,15 @@ module.exports.getLadder = async (req, res) => {
 					user: req.user.id,
 					problem: problems[i]._id,
 					status:
-						allSubs[0].verdict === "OK" ? "solved" : "attempted",
+						collectSubs[0].verdict === "OK"
+							? "solved"
+							: "attempted",
 					lastAttemptTime: new Date(
-						allSubs[0].creationTimeSeconds * 1000
+						collectSubs[0].creationTimeSeconds * 1000
 					).toISOString(),
-					attempts: allSubs.length,
-					language: allSubs[0].programmingLanguage,
-					verdict: allSubs[0].verdict
+					attempts: collectSubs.length,
+					language: collectSubs[0].programmingLanguage,
+					verdict: collectSubs[0].verdict
 				};
 				newSubs.push(newSub);
 			}
@@ -134,14 +139,28 @@ module.exports.getLadder = async (req, res) => {
 			break;
 		}
 	}
-	// let unlockedProblem;
-	// if (subs.length > 0) {
-	// 	if (subs[subs.length - 1].status === "solved") {
-	// 		unlockedProblem = problems[subs.length];
-	// 	} else {
-	// 		unlockedProblem = problems[subs.length - 1];
-	// 	}
-	// }
+	if (subs.length !== 0 || latestSubmission) {
+		//finally collecting all submissions (re-requesting updated data)
+		allSubs = await Submissions.find({ user: req.user.id }).populate({
+			path: "problem",
+			match: { div }
+		});
+		divSubs = allSubs.filter(sub => sub.problem !== null);
+	}
 
-	res.json({ message: "ok" });
+	let unlockedProblem, unlockProbNum;
+	if (divSubs.length !== 0) {
+		if (divSubs[divSubs.length - 1].verdict === "OK") {
+			unlockProbNum = divSubs[divSubs.length - 1].problem.id + 1;
+		} else {
+			unlockProbNum = divSubs[divSubs.length - 1].problem.id;
+		}
+		unlockedProblem = problems.find(
+			problem => problem.id === unlockProbNum
+		);
+	} else {
+		unlockedProblem = problems.find(problem => problem.id === 1);
+	}
+
+	res.json({ message: "ok", divSubs, unlockedProblem });
 };
