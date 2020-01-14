@@ -95,4 +95,4 @@ const statsSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-module.exports = Stats = mongoose.model("stats", statsSchema);
+module.exports = Stats = mongoose.model("Stats", statsSchema);
