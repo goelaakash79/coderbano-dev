@@ -40,7 +40,7 @@ module.exports.getLadder = async (req, res) => {
 
 	//get all CFs submissions of this user
 	const response = await axios.get(
-		"https://codeforces.com/api/user.status?handle=ahmed_aly&from=1"
+		`https://codeforces.com/api/user.status?handle=${req.user.handle}&from=1`
 	);
 	let codeforcesSubs = response.data.result;
 
