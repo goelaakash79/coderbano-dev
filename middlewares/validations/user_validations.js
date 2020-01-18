@@ -4,6 +4,7 @@ module.exports.ladderDetailsValidator = (req, res, next) => {
 		"2, B",
 		"2, C",
 		"2, D",
+		"2, E",
 		"1, D",
 		"1, E",
 		"Rating less than 1300"
