@@ -1,6 +1,34 @@
 require("dotenv").config();
 const axios = require("axios");
 
+const mostFrequent = arr => {
+	// Sort the array
+	arr.sort();
+
+	// find the max frequency using linear traversal
+	let max_count = 1,
+		res = arr[0],
+		curr_count = 1;
+	for (let i = 1; i < arr.length; i++) {
+		if (arr[i] == arr[i - 1]) curr_count++;
+		else {
+			if (curr_count > max_count) {
+				max_count = curr_count;
+				res = arr[i - 1];
+			}
+			curr_count = 1;
+		}
+	}
+
+	// If last element is most frequent
+	if (curr_count > max_count) {
+		max_count = curr_count;
+		res = arr[arr.length - 1];
+	}
+	console.log(res);
+	return res;
+};
+
 module.exports.dashboard = async (req, res) => {
 	let stats = await Stats.findOne({ user: req.user.id });
 	if (!stats) {
@@ -12,19 +40,99 @@ module.exports.dashboard = async (req, res) => {
 		stats = await Stats.create(newStats);
 	} else {
 		//updating stats
-		// if(stats.submissions)
-		// let docs = [];
-		// for (let i = 0; i < 1000; i++) {
-		// 	let newStats = {
-		// 		user: req.user.id,
-		// 		lastActivity: new Date(Date.now()).toISOString()
-		// 	};
-		// 	docs.push(newStats);
-		// }
-		// stats = await Stats.insertMany(docs);
-	}
+		let submissions = await Submissions.find({ user: req.user.id })
+			.populate("problem")
+			.sort({ lastAttemptTime: "desc" });
 
-	res.json({ stats });
+		//mostProductiveDay,mostProdTime, mostUsedLang,
+		let divs = [
+			"2, A",
+			"2, B",
+			"2, C",
+			"2, D",
+			"2, E",
+			"1, D",
+			"1, E",
+			"Rating less than 1300"
+		];
+
+		let allDays = [],
+			allTimes = [],
+			allLanguages = [];
+		divs.map(div => {
+			let divSubs = submissions.filter(sub => sub.problem.div === div);
+			if (divSubs.length !== 0) {
+				stats.lastActivity = stats.ladderDetails[div].lastActivity =
+					divSubs[0].lastAttemptTime;
+				stats.ladderDetails[div].unlocked = true;
+				stats.ladderDetails[div].problemsSolved = divSubs.filter(
+					sub => sub.verdict === "OK"
+				).length;
+				divSubs.map(sub => {
+					if (sub.verdict === "OK") {
+						allDays.push(sub.lastAttemptTime.getDay());
+						allLanguages.push(sub.language);
+						if (
+							sub.lastAttemptTime.getHours() >= 0 &&
+							sub.lastAttemptTime.getHours() <= 3
+						) {
+							//late nights
+							allTimes.push(0);
+						} else if (sub.lastAttemptTime.getHours() <= 7) {
+							//early mornings
+							allTimes.push(1);
+						} else if (sub.lastAttemptTime.getHours() <= 11) {
+							//mornings
+							allTimes.push(2);
+						} else if (sub.lastAttemptTime.getHours() <= 15) {
+							//noons0
+							allTimes.push(3);
+						} else if (sub.lastAttemptTime.getHours() <= 20) {
+							//evenings
+							allTimes.push(4);
+						} else if (sub.lastAttemptTime.getHours() <= 23) {
+							//nights
+							allTimes.push(5);
+						}
+					}
+				});
+			}
+		});
+
+		let days = [
+			"Sunday",
+			"Monday",
+			"Tuesday",
+			"Wednesday",
+			"Thursday",
+			"Friday",
+			"Saturday"
+		];
+		let times = [
+			"Late nights",
+			"Early Mornings",
+			"Mornings",
+			"Noons",
+			"Evenings",
+			"Nights"
+		];
+		if (
+			allLanguages.length !== 0 &&
+			allDays.length !== 0 &&
+			allTimes.length !== 0
+		) {
+			stats.most.productiveDay = days[mostFrequent(allDays)];
+
+			stats.most.productiveTimeOfDay = times[mostFrequent(allTimes)];
+			stats.most.usedLanguage = mostFrequent(allLanguages);
+		}
+		await stats.save();
+	}
+	return res.status(200).json({
+		message: "success",
+		error: false,
+		data: stats
+	});
 };
 
 module.exports.getLadder = async (req, res) => {
@@ -40,7 +148,7 @@ module.exports.getLadder = async (req, res) => {
 
 	//get all CFs submissions of this user
 	const response = await axios.get(
-		"https://codeforces.com/api/user.status?handle=ahmed_aly&from=1"
+		`https://codeforces.com/api/user.status?handle=${req.user.handle}&from=1`
 	);
 	let codeforcesSubs = response.data.result;
 
@@ -162,5 +270,9 @@ module.exports.getLadder = async (req, res) => {
 		unlockedProblem = problems.find(problem => problem.id === 1);
 	}
 
-	res.json({ message: "ok", divSubs, unlockedProblem });
+	return res.status(200).json({
+		message: "success",
+		error: false,
+		data: { divSubs, unlockedProblem }
+	});
 };
