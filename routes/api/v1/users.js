@@ -3,11 +3,13 @@ const router = express.Router();
 
 const { userAuth } = require("../../../middlewares/auth");
 const {
-	ladderDetailsValidator
+	ladderDetailsValidator,
+	stalkHandleValidator
 } = require("../../../middlewares/validations/user_validations");
 const {
 	dashboard,
-	getLadder
+	getLadder,
+	stalkFriend
 } = require("../../../controllers/users_controller");
 const { catchErrors } = require("../../../config/errorHandler");
 
@@ -18,5 +20,5 @@ router.get(
 	ladderDetailsValidator,
 	catchErrors(getLadder)
 );
-
+router.get("/stalk", userAuth, stalkHandleValidator, catchErrors(stalkFriend));
 module.exports = router;
