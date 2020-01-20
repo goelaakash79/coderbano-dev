@@ -176,7 +176,10 @@ module.exports.stalkFriend = async (req, res) => {
 			data: null
 		});
 
-	let stats = await Stats.findOne({ user: user._id });
+	let stats = await Stats.findOne({ user: user._id }).populate(
+		"user",
+		"handle email createdAt"
+	);
 
 	if (stats) {
 		stats = await computeStats(user._id, stats);

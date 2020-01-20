@@ -54,7 +54,6 @@ const mostFrequent = arr => {
 		max_count = curr_count;
 		res = arr[arr.length - 1];
 	}
-	console.log(res);
 	return res;
 };
 
