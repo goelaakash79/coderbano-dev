@@ -35,7 +35,7 @@ module.exports.getLadder = async (req, res) => {
 	let problems = await Problem.find({ div }).sort({ id: "asc" });
 
 	//get all CFs submissions of this user
-	req.user.handle = "Anshul1507";
+	req.user.handle = "sgshubham98"; //indirectly checking for unregistered users
 	const response = await axios.get(
 		`https://codeforces.com/api/user.status?handle=${req.user.handle}&from=1`
 	);
@@ -57,12 +57,15 @@ module.exports.getLadder = async (req, res) => {
 		let collectSubs = [];
 		for (let j = 0; j < codeforcesSubs.length; j++) {
 			//find subs for this problem found in CF db
-			if (codeforcesSubs[j].problem.name === problems[i].name) {
+			if (
+				String(codeforcesSubs[j].problem.name).trim() ===
+				String(problems[i].name).trim()
+			) {
 				//checking if we have that problem sub in our db
 				if (
 					divSubs.length !== 0 &&
-					latestSubmission.problem.name ===
-						codeforcesSubs[j].problem.name
+					String(latestSubmission.problem.name).trim() ===
+						String(codeforcesSubs[j].problem.name).trim()
 				) {
 					//we already have the submission in our own db
 					//lets check if it has been modified
