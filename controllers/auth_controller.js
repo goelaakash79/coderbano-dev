@@ -5,7 +5,7 @@ module.exports.register = async (req, res) => {
 	let { handle, email, password } = req.body;
 	let user = await User.findOne({ $or: [{ email }, { handle }] });
 	if (user) {
-		return res.status(200).json({
+		return res.status(406).json({
 			message: "Email/Handle already in use",
 			error: false,
 			data: null
@@ -25,36 +25,31 @@ module.exports.register = async (req, res) => {
 
 module.exports.login = async (req, res) => {
 	let { handle, password } = req.body;
-	try {
-		let user = await User.findOne({ handle });
-		if (user) {
-			let isMatchPassword = await bcrypt.compare(password, user.password);
-			if (isMatchPassword) {
-				let token = user.generateAuthToken();
-				return res
-					.status(200)
-					.header("x-auth-token", token)
-					.json({
-						message: "success",
-						token,
-						error: false,
-						data: user
-					});
-			} else {
-				return res.status(200).json({
-					message: "invalid credentials",
-					error: true,
-					data: req.body
-				});
-			}
-		} else {
+
+	let user = await User.findOne({ handle });
+	if (user) {
+		let isMatchPassword = await bcrypt.compare(password, user.password);
+		if (isMatchPassword) {
+			let token = user.generateAuthToken();
 			return res
 				.status(200)
-				.json({ message: "invalid user", error: true, data: null });
+				.header("x-auth-token", token)
+				.json({
+					message: "success",
+					token,
+					error: false,
+					data: user
+				});
+		} else {
+			return res.status(406).json({
+				message: "invalid credentials",
+				error: true,
+				data: req.body
+			});
 		}
-	} catch (err) {
+	} else {
 		return res
-			.status(400)
-			.json({ message: err.message, error: true, data: null });
+			.status(406)
+			.json({ message: "invalid user", error: true, data: null });
 	}
 };
