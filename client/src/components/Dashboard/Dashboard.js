@@ -1,9 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 // import { Redirect } from "react-router-dom";
 import { FaLock, FaKeyboard, FaGhost } from "react-icons/fa";
+import { dashboardService } from "../../utils/Services";
 
 const Dashboard = props => {
+	const [isSuffData, setIsSuffData] = useState(false);
+	const [stats, setStats] = useState({
+		productiveDay: "",
+		productiveTimeOfDay: "",
+		usedLanguage: "",
+		joined: "",
+		problemsSolved: ""
+	});
+	useEffect(() => {
+		(async () => {
+			const res = await dashboardService();
+			console.log(res);
+			if (res.most.productiveDay === "Insufficient data") {
+				setIsSuffData(true);
+			} else {
+				setStats({
+					productiveDay: res.most.productiveDay,
+					productiveTimeOfDay: res.most.productiveTimeOfDay,
+					usedLanguage: res.most.usedLanguage,
+					joined: res.createdAt
+				});
+			}
+		})();
+	}, []);
 	const handleStalkDost = () => {
 		let { history } = props;
 		history.push("/stalk-friend");
@@ -58,26 +83,41 @@ const Dashboard = props => {
 				<div className="col-md-3">
 					<h5 className="fontMd">Stats</h5>
 
-					<div className="stats-wrapper mt-4">
+					<div className="stats-wrapper mt-4" hidden={isSuffData}>
 						<h6>Problems Solved</h6>
 						<h3>
 							<span className="fontBd green">79</span> / 800
 						</h3>
 						<br />
-						<h6>Joined</h6>
-						<h5>
-							<span className="fontMd">Jan 05, 2020</span>
-						</h5>
-						<br />
 						<h6>Most Productive On</h6>
 						<h5>
-							<span className="fontMd">Monday</span>
+							<span className="fontMd">
+								{stats.productiveDay}
+							</span>
 						</h5>
 						<br />
 						<h6>Mostly codes in</h6>
 						<h5>
-							<span className="fontMd">Night</span>
+							<span className="fontMd">
+								{stats.productiveTimeOfDay}
+							</span>
 						</h5>
+						<br />
+						<h6>Mostly codes in</h6>
+						<h5>
+							<span className="fontMd">{stats.usedLanguage}</span>
+						</h5>
+						<br />
+						<h6>Joined on</h6>
+						<h5>
+							<span className="fontMd">
+								{stats.joined.split("T")[0]}
+							</span>
+						</h5>
+					</div>
+
+					<div className="stats-wrapper mt-4" hidden={!isSuffData}>
+						Please unlock a ladder to view stats 😀
 					</div>
 				</div>
 			</div>

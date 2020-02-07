@@ -6,11 +6,11 @@ import { loginService } from "../../utils/Services";
 
 import { FaGhost } from "react-icons/fa";
 
-const Login = () => {
+const Login = props => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	// const [disable, setDisable] = useState(false);
-	const [show, setShow] = useState(false);
+	// const [show, setShow] = useState(false);
 	// const [message, setMessage] = useState("");
 
 	const handleSubmit = async e => {
@@ -22,6 +22,7 @@ const Login = () => {
 				const token = res.token;
 				localStorage.setItem("token", token);
 				localStorage.setItem("user_id", res.data._id);
+				props.history.push("/");
 			}
 		} catch (err) {
 			console.log(err);
