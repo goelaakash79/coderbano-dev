@@ -33,7 +33,7 @@ app.use(
 // load schemas
 const User = require("./models/User");
 const Problem = require("./models/Problem");
-const Stats = require("./models/Stats");
+const Statistics = require("./models/Statistics");
 const Submissions = require("./models/Submissions");
 
 // Routes

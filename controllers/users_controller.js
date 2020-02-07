@@ -3,7 +3,7 @@ const axios = require("axios");
 const { computeStats } = require("../config/helpers");
 
 module.exports.dashboard = async (req, res) => {
-	let stats = await Stats.findOne({ user: req.user.id });
+	let stats = await Statistics.findOne({ user: req.user.id });
 
 	if (!stats) {
 		//create prelim stats for new users
@@ -11,7 +11,7 @@ module.exports.dashboard = async (req, res) => {
 			user: req.user.id,
 			lastActivity: new Date(Date.now()).toISOString()
 		};
-		stats = await Stats.create(newStats);
+		stats = await Statistics.create(newStats);
 	}
 
 	stats = await computeStats(req.user.id, stats);
@@ -179,7 +179,7 @@ module.exports.stalkFriend = async (req, res) => {
 			data: null
 		});
 
-	let stats = await Stats.findOne({ user: user._id }).populate(
+	let stats = await Statistics.findOne({ user: user._id }).populate(
 		"user",
 		"handle email createdAt"
 	);
