@@ -35,7 +35,7 @@ module.exports.getLadder = async (req, res) => {
 	let problems = await Problem.find({ div }).sort({ id: "asc" });
 
 	//get all CFs submissions of this user
-	req.user.handle = "sgshubham98"; //indirectly checking for unregistered users
+	// req.user.handle = "sgshubham98"; //indirectly checking for unregistered users
 	const response = await axios.get(
 		`https://codeforces.com/api/user.status?handle=${req.user.handle}&from=1`
 	);
