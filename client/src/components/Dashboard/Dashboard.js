@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
 // import { Redirect } from "react-router-dom";
-import { FaLock, FaKeyboard, FaGhost } from "react-icons/fa";
+import { FaKeyboard, FaLock, FaGhost } from "react-icons/fa";
 import { dashboardService } from "../../utils/Services";
 
 const Dashboard = props => {
@@ -13,10 +13,28 @@ const Dashboard = props => {
 		joined: "",
 		problemsSolved: ""
 	});
+	const [ladders, setLadders] = useState([]);
+
 	useEffect(() => {
 		(async () => {
 			const res = await dashboardService();
 			console.log(res);
+			let laddersArr = Object.keys(res.ladderDetails).map(
+				(ladder, id) => {
+					return {
+						details: Object.values(res.ladderDetails)[id],
+						name: ladder
+					};
+				}
+			);
+			setLadders(laddersArr);
+
+			let problemsSolved = 0;
+			laddersArr.map((ladder, i) => {
+				return (problemsSolved += ladder.details.problemsSolved);
+			});
+
+			console.log(laddersArr);
 			if (res.most.productiveDay === "Insufficient data") {
 				setIsSuffData(true);
 			} else {
@@ -24,11 +42,13 @@ const Dashboard = props => {
 					productiveDay: res.most.productiveDay,
 					productiveTimeOfDay: res.most.productiveTimeOfDay,
 					usedLanguage: res.most.usedLanguage,
-					joined: res.createdAt
+					joined: res.createdAt,
+					problemsSolved
 				});
 			}
 		})();
 	}, []);
+
 	const handleStalkDost = () => {
 		let { history } = props;
 		history.push("/stalk-friend");
@@ -49,35 +69,53 @@ const Dashboard = props => {
 				<div className="col-md-9">
 					<h5 className="fontMd">Codeforces Ladders</h5>
 					<div className="row mt-4">
-						<div className="col-md-6">
-							<div className="card ladder-card p-4">
-								<h5 className="fontBd mb-2">Div. 2.A</h5>
-								<p className="desc">
-									This is a good practice for whoever is
-									beginner in programming problems.
-								</p>
-								<button className="col-6 unlock-button">
-									Unlock <FaLock />
-								</button>
-							</div>
-						</div>
-
-						<div className="col-md-6">
-							<div className="card ladder-card continue-div p-4">
-								<h5 className="fontBd mb-2">Div. 2.A</h5>
-								<p className="desc fontMd">
-									Problems Solved: 09 out of 100
-									<br />
-									Last question solved:{" "}
-									<span className="highlight">
-										8 days ago
-									</span>
-								</p>
-								<button className="col-6 unlock-button">
-									Continue <FaKeyboard />
-								</button>
-							</div>
-						</div>
+						{ladders.map((ladder, idx) => {
+							return (
+								<div className="col-md-6 mb-4" key={idx}>
+									<div
+										className={`card ladder-card p-4 ${
+											ladder.details.unlocked === true
+												? "continue-div"
+												: ""
+										}`}
+									>
+										<h5 className="fontBd mb-2">
+											Div. {ladder.name}
+										</h5>
+										<p className="desc">
+											{ladder.details.unlocked ===
+											true ? (
+												<>
+													Last Problem Solved on:{" "}
+													{
+														ladder.details.lastActivity.split(
+															"T"
+														)[0]
+													}
+												</>
+											) : (
+												<>
+													Unlock this Division to
+													start
+												</>
+											)}
+										</p>
+										<button className="col-6 unlock-button">
+											{ladder.details.unlocked ===
+											true ? (
+												<>
+													Continue <FaKeyboard />
+												</>
+											) : (
+												<>
+													Unlock <FaLock />
+												</>
+											)}
+										</button>
+									</div>
+								</div>
+							);
+						})}
 					</div>
 				</div>
 				<div className="col-md-3">
@@ -86,7 +124,10 @@ const Dashboard = props => {
 					<div className="stats-wrapper mt-4" hidden={isSuffData}>
 						<h6>Problems Solved</h6>
 						<h3>
-							<span className="fontBd green">79</span> / 800
+							<span className="fontBd green">
+								{stats.problemsSolved}
+							</span>{" "}
+							/ 800
 						</h3>
 						<br />
 						<h6>Most Productive On</h6>
@@ -117,7 +158,7 @@ const Dashboard = props => {
 					</div>
 
 					<div className="stats-wrapper mt-4" hidden={!isSuffData}>
-						Please unlock a ladder to view stats 😀
+						Please unlock a ladder to view stats "😀"
 					</div>
 				</div>
 			</div>
