@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
-// import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaKeyboard, FaLock, FaGhost } from "react-icons/fa";
 import { dashboardService } from "../../utils/Services";
 
@@ -95,12 +95,18 @@ const Dashboard = props => {
 												</>
 											) : (
 												<>
-													Unlock this Division to
-													start
+													Unlock this ladder by
+													solving a problem
 												</>
 											)}
 										</p>
-										<button className="col-6 unlock-button">
+										<Link
+											className="col-6 unlock-button"
+											to={{
+												pathname: `/ladder/${ladder.name}`,
+												state: { div: ladder.name }
+											}}
+										>
 											{ladder.details.unlocked ===
 											true ? (
 												<>
@@ -111,7 +117,7 @@ const Dashboard = props => {
 													Unlock <FaLock />
 												</>
 											)}
-										</button>
+										</Link>
 									</div>
 								</div>
 							);

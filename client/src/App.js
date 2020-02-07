@@ -30,7 +30,7 @@ function App() {
 				/>
 				<Route
 					exact
-					path="/ladder"
+					path="/ladder/:div"
 					component={isLoggedIn === true ? Ladder : Login}
 				/>
 				<Route

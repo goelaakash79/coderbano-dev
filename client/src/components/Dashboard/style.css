@@ -1,98 +1,109 @@
 .highlight {
-  font-family: GoogleSansBd;
-  /* color: #DB4437; */
-  background-color: #F4B400;
-  color: #0F9D58;
+	font-family: GoogleSansBd;
+	/* color: #DB4437; */
+	background-color: #f4b400;
+	color: #0f9d58;
 }
 
 input {
-  border: 0;
+	border: 0;
 }
 
 .unlock-button {
-  padding: 6px 12px;
-  background: #ffffff;
-  color: #3c83da;
-  font-family: GoogleSansBd;
-  border: 0;
-  border-radius: 2px;
-  transition: 0.2s all linear;
+	padding: 6px 12px;
+	background: #ffffff;
+	color: #3c83da !important;
+	font-family: GoogleSansBd;
+	border: 0;
+	border-radius: 2px;
+	text-align: center;
+	transition: 0.2s all linear;
 }
 
 a {
-  color: white;
+	color: white;
 }
 
-a:hover{
-    color: white;
-    text-decoration: none;
+a:hover {
+	color: white;
+	text-decoration: none;
 }
 
 .button:hover {
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.16), 0px 2px 4px rgba(0, 0, 0, 0.23);
+	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.16), 0px 2px 4px rgba(0, 0, 0, 0.23);
 }
 
-.ladder-card{
-  color: #ffffff;
-  border: 0;
-  background: #3c83da;
+.ladder-card {
+	color: #ffffff;
+	border: 0;
+	background: #3c83da;
 }
 
 .continue-div {
-    color: #ffffff;
-    border: 0;
-    background: #0F9D58;
+	color: #ffffff;
+	border: 0;
+	background: #0f9d58;
 }
 
 .green {
-  color: #0F9D58;
+	color: #0f9d58;
 }
 
 tbody tr:nth-of-type(even) {
-  background-color: #f1f1f1;
+	background-color: #f1f1f1;
 }
 
 .table {
-  border-radius: 8px!important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);
-  border:0;
+	border-radius: 8px !important;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);
+	border: 0;
 }
 
 table {
-  border-radius: 8px;
+	border-radius: 8px;
 }
 
 thead {
-  background-color: #3c83da;
-  color: #ffffff;
-  border-radius: 8px!important;
+	background-color: #3c83da;
+	color: #ffffff;
+	border-radius: 8px !important;
 }
 
 thead tr {
-  border-radius: 8px;
-
+	border-radius: 8px;
 }
 
 thead tr th {
-  font-family: GoogleSansBd;
-  font-weight: 400;
+	font-family: GoogleSansBd;
+	font-weight: 400;
 }
 
 .stats-wrapper {
-  /* background: #d5d5d5; */
+	/* background: #d5d5d5; */
 }
 
 .div-name {
-  color: #0F9D58;
+	color: #0f9d58;
 }
 
 .stalk-friend-dashboard {
-  background: #0F9D58;
-  border-radius: 4px;
-  float: right;
-  color: #ffffff;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 8px 16px;
-  text-align: center;
+	background: #0f9d58;
+	border-radius: 4px;
+	float: right;
+	color: #ffffff;
+	cursor: pointer;
+	font-size: 16px;
+	padding: 8px 16px;
+	text-align: center;
+}
+
+.problem-link {
+	color: #3c83da !important;
+	font-family: GoogleSansMd;
+}
+
+.problemsolved {
+	/* background-color: rgb(15, 157, 88, 0.2) !important; */
+	background-color: #ccc !important;
+	/* color: #ffffff; */
 }
