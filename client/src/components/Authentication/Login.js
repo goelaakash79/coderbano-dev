@@ -1,40 +1,42 @@
 import React, { useState } from "react";
-// import { Row, Col, Container } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./style.css";
-import { Toast } from "react-bootstrap";
-
+import { Link } from "react-router-dom";
 import Common from "./Common";
-import { loginService, ladderService } from "../../utils/Services";
+import { loginService } from "../../utils/Services";
 
-import { FaGhost } from "react-icons/fa";
+import { FaSpinner } from "react-icons/fa";
 
 const Login = props => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	const [show, setShow] = useState(false);
-	const [message, setMessage] = useState("");
-	// const [disable, setDisable] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleSubmit = async e => {
 		e.preventDefault();
+		setIsLoading(true);
+
 		try {
 			const data = { handle: username, password };
-
 			const res = await loginService(data);
-			if (res.message === "invalid user") {
-				console.log("Invalid");
-				setMessage("Please register first");
-				setShow(true);
+			if (res.error === true) {
+				toast.error(res.message);
+				setIsLoading(false);
 			}
 			if (res.message === "success") {
+				toast.success("Welcome to Coderbano");
+
 				const token = res.token;
 				localStorage.setItem("token", token);
 				localStorage.setItem("user_id", res.data._id);
-
-				await props.history.push({
-					pathname: "/",
-					state: { update: 1 }
-				});
+				setTimeout(async () => {
+					await props.history.push({
+						pathname: "/"
+					});
+					window.location.reload();
+				}, 1200);
+				setIsLoading(false);
 			}
 		} catch (err) {
 			console.log(err);
@@ -42,19 +44,18 @@ const Login = props => {
 	};
 	return (
 		<div className="container">
-			<div
-				onClose={() => setShow(false)}
-				show={show}
-				style={{
-					right: 48,
-					top: 48,
-					float: "right",
-					position: "absolute",
-					zIndex: 999
-				}}
-			>
-				{message}
-			</div>
+			<ToastContainer
+				position="top-right"
+				autoClose={5000}
+				hideProgressBar
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnVisibilityChange
+				draggable
+				pauseOnHover
+			/>
+
 			<div className="row pt-5 mt-5 mb-5 pb-5">
 				<Common />
 				<div className="col-md-5">
@@ -82,19 +83,22 @@ const Login = props => {
 								className="form-control mb-4"
 							/>
 
-							<button className="button mb-2">
-								Start Coding
+							<button
+								disabled={isLoading}
+								className="button mb-2"
+							>
+								<FaSpinner hidden={!isLoading} /> Start Coding
 							</button>
 
 							<hr className="box-hr" />
 							<p className="mb-0" style={{ fontSize: 16 }}>
-								<a href="/register">Register</a>{" "}
-								<a
-									href="/reset-password"
+								<Link to="/register">Register</Link>{" "}
+								<Link
+									to="/reset-password"
 									style={{ float: "right" }}
 								>
 									Reset Password
-								</a>
+								</Link>
 							</p>
 							{/* <h5 className="text-center hint mb-0">Follow us on twitter</h5> */}
 						</form>
@@ -104,7 +108,6 @@ const Login = props => {
 					</div> */}
 				</div>
 			</div>
-
 			<hr className="bottomline mt-5"></hr>
 			<p className="text-center">
 				Developed under the good works of DSC KIET

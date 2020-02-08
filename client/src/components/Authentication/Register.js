@@ -1,96 +1,60 @@
 import React, { useState } from "react";
 import "./style.css";
-import { Toast } from "react-bootstrap";
 import Common from "./Common";
-import { FaGhost } from "react-icons/fa";
-import { registerService, ladderService } from "../../utils/Services";
+import { Link } from "react-router-dom";
+import { FaGhost, FaSpinner } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+
+import { registerService } from "../../utils/Services";
 
 const Register = props => {
 	const [email, setEmail] = useState("");
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	const [disable, setDisable] = useState(false);
-	const [show, setShow] = useState(false);
-	const [message, setMessage] = useState("");
-
-	// const validateInputs = () => {
-	// 	if (!email || !password || !username) {
-	// 		setDisable(true);
-	// 	}
-	// 	if (password.length >= 6) {
-	// 		setDisable(false);
-	// 	}
-	// 	if (email && password && username) {
-	// 		setDisable(false);
-	// 	}
-	// };
-
-	const ladders = [
-		"2, A",
-		"2, B",
-		"2, C",
-		"2, D",
-		"2, E",
-		"1, D",
-		"1, E",
-		"Rating less than 1300"
-	];
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleSubmit = async e => {
 		e.preventDefault();
-		// validateInputs();
+		setIsLoading(true);
+
 		try {
-			setDisable(true);
 			const data = { email, password, handle: username };
 			const res = await registerService(data);
-			if (res) setDisable(false);
+			// console.log(res);
+
+			if (res.error === true) {
+				toast.error(`${res.message}`);
+			}
 			if (res.message === "Email/Handle already in use") {
-				setMessage("Email/Handle already in use");
-				setShow(true);
-			}
-			if (res.message === "Invalid Codeforces handle") {
-				console.log("Invalid Codeforces handle");
-				setMessage("Invalid Codeforces handle");
-				setShow(true);
-			}
-			if (res.message === "invalid user") {
-				console.log("Invalid");
-				setMessage("Please register first");
-				setShow(true);
+				toast.error("😑 Email/Handle already in use");
 			}
 			if (res.message === "success") {
-				console.log("okay");
-				setMessage("Welcome");
-				setShow(true);
-				ladders.map(async ladder => {
-					await ladderService({ div: ladder });
-				});
-				props.history.push("/");
+				toast.success(`Successfully Registered`);
+
+				setTimeout(() => {
+					props.history.push("/");
+				}, 1200);
 			}
+			setIsLoading(false);
 		} catch (err) {
-			console.log(err);
+			// console.log(err);
+			toast.error("😑 Some error occurred, please try again");
+			setIsLoading(false);
 		}
 	};
 	return (
 		<div className="container">
-			<Toast
-				onClose={() => setShow(false)}
-				show={show}
-				style={{
-					right: 48,
-					top: 48,
-					float: "right",
-					position: "absolute",
-					zIndex: 999
-				}}
-				delay={3000}
-				autohide
-			>
-				<Toast.Header>
-					<strong className="mr-auto">Notification</strong>
-				</Toast.Header>
-				<Toast.Body>{message}</Toast.Body>
-			</Toast>
+			<ToastContainer
+				position="top-right"
+				autoClose={5000}
+				hideProgressBar
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnVisibilityChange
+				draggable
+				pauseOnHover
+			/>
 			<div className="row pt-5 mt-5 mb-5 pb-5">
 				<Common />
 				<div className="col-md-5">
@@ -102,6 +66,7 @@ const Register = props => {
 								placeholder="pick a username"
 								type="text"
 								name="username"
+								value={username}
 								onChange={e => setUsername(e.target.value)}
 								className="form-control"
 								required
@@ -113,6 +78,7 @@ const Register = props => {
 							<input
 								placeholder="tell us your email address"
 								type="email"
+								value={email}
 								name="email"
 								onChange={e => setEmail(e.target.value)}
 								className="form-control mb-2"
@@ -123,24 +89,28 @@ const Register = props => {
 								placeholder="choose a secure password"
 								type="password"
 								name="password"
+								value={password}
 								onChange={e => setPassword(e.target.value)}
 								className="form-control mb-4"
 								required
 							/>
 
-							<button disabled={disable} className="button mb-2">
-								Create profile
+							<button
+								disabled={isLoading}
+								className="button mb-2"
+							>
+								<FaSpinner hidden={!isLoading} /> Create profile
 							</button>
 
 							<hr className="box-hr" />
 							<p className="mb-0" style={{ fontSize: 16 }}>
-								<a href="/login">Sign In</a>{" "}
-								<a
-									href="/reset-password"
+								<Link to="/login">Sign In</Link>{" "}
+								<Link
+									to="/reset-password"
 									style={{ float: "right" }}
 								>
 									Reset Password
-								</a>
+								</Link>
 							</p>
 						</form>
 					</div>

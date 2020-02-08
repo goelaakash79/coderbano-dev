@@ -1,6 +1,8 @@
 import axios from "axios";
 import { authLogin, authRegister, dashboard, ladderDetail } from "./Routes";
-axios.defaults.baseURL = "https://www.coderbano.tech/api/v1/";
+// axios.defaults.baseURL = "https://coderbano.tech/api/v1/";
+axios.defaults.baseURL = "http://localhost:5000/api/v1/";
+
 const AUTH_TOKEN = localStorage.getItem("token");
 if (AUTH_TOKEN) {
 	axios.defaults.headers.common["x-auth-token"] = AUTH_TOKEN;
@@ -10,8 +12,8 @@ export const loginService = async data => {
 		const response = await axios.post(authLogin, data);
 		return response.data;
 	} catch (err) {
-		console.log(err);
-		return err.message;
+		// console.log(err.response);
+		return err.response.data;
 	}
 };
 
@@ -20,8 +22,8 @@ export const registerService = async data => {
 		const response = await axios.post(authRegister, data);
 		return response.data;
 	} catch (err) {
-		console.log(err);
-		return err.message;
+		// console.log(err.response);
+		return err.response.data;
 	}
 };
 
@@ -34,7 +36,8 @@ export const dashboardService = async () => {
 			console.log(response);
 		}
 	} catch (err) {
-		console.log(err);
+		console.log(err.response);
+		return err.response.data;
 	}
 };
 
@@ -47,6 +50,7 @@ export const ladderService = async params => {
 			console.log(response);
 		}
 	} catch (err) {
-		console.log(err);
+		console.log(err.response);
+		return err.response.data;
 	}
 };

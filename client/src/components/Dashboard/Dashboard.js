@@ -221,6 +221,11 @@ const Dashboard = props => {
 							<span role="img" aria-label="">
 								😀
 							</span>
+							<br />
+							<br />
+							If you have solved some questions previously, just
+							click on unlock, to unlock that particular ladder,
+							and we will add them to your statistics.
 						</div>
 					</div>
 				</div>
