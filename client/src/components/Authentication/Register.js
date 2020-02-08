@@ -3,9 +3,9 @@ import "./style.css";
 import { Toast } from "react-bootstrap";
 import Common from "./Common";
 import { FaGhost } from "react-icons/fa";
-import { registerService } from "../../utils/Services";
+import { registerService, ladderService } from "../../utils/Services";
 
-const Register = () => {
+const Register = props => {
 	const [email, setEmail] = useState("");
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
@@ -25,6 +25,17 @@ const Register = () => {
 	// 	}
 	// };
 
+	const ladders = [
+		"2, A",
+		"2, B",
+		"2, C",
+		"2, D",
+		"2, E",
+		"1, D",
+		"1, E",
+		"Rating less than 1300"
+	];
+
 	const handleSubmit = async e => {
 		e.preventDefault();
 		// validateInputs();
@@ -42,10 +53,19 @@ const Register = () => {
 				setMessage("Invalid Codeforces handle");
 				setShow(true);
 			}
+			if (res.message === "invalid user") {
+				console.log("Invalid");
+				setMessage("Please register first");
+				setShow(true);
+			}
 			if (res.message === "success") {
 				console.log("okay");
 				setMessage("Welcome");
 				setShow(true);
+				ladders.map(async ladder => {
+					await ladderService({ div: ladder });
+				});
+				props.history.push("/");
 			}
 		} catch (err) {
 			console.log(err);
@@ -122,12 +142,11 @@ const Register = () => {
 									Reset Password
 								</a>
 							</p>
-							{/* <h5 className="text-center hint mb-0">Follow us on twitter</h5> */}
 						</form>
 					</div>
-					<div className="stalk-friend col-12">
+					{/* <div className="stalk-friend col-12">
 						<FaGhost /> Stalk your friend
-					</div>
+					</div> */}
 				</div>
 			</div>
 

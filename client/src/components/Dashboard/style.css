@@ -97,6 +97,26 @@ thead tr th {
 	text-align: center;
 }
 
+.profile-section {
+	float: right;
+}
+
+.profile-section span {
+	font-size: 16px;
+	padding: 8px 0;
+	text-align: center;
+}
+
+.profile-section button {
+	border: 0;
+	padding: 4px 8px;
+	border-radius: 2px;
+	font-size: 16px;
+
+	color: #ffffff;
+	background-color: #f4b400;
+}
+
 .problem-link {
 	color: #3c83da !important;
 	font-family: GoogleSansMd;

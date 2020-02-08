@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
 import { Link } from "react-router-dom";
-import { FaKeyboard, FaLock, FaGhost, FaSpinner } from "react-icons/fa";
+import {
+	FaKeyboard,
+	FaLock,
+	FaGhost,
+	FaSpinner,
+	FaUserSecret
+} from "react-icons/fa";
 import { dashboardService } from "../../utils/Services";
+import authCheck from "../authCheck";
 
 const Dashboard = props => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -14,11 +21,22 @@ const Dashboard = props => {
 		joined: "",
 		problemsSolved: ""
 	});
+
 	const [ladders, setLadders] = useState([]);
+	const user = authCheck();
+
+	// console.log(userInfo);
 
 	useEffect(() => {
+		if (!user.isLoggedIn) {
+			return props.history.push("/login");
+		}
 		(async () => {
 			const res = await dashboardService();
+			if (props.location.state) {
+				if (props.location.state.update) {
+				}
+			}
 			let laddersArr = Object.keys(res.ladderDetails).map(
 				(ladder, id) => {
 					return {
@@ -27,12 +45,15 @@ const Dashboard = props => {
 					};
 				}
 			);
+
 			setLadders(laddersArr);
 
 			let problemsSolved = 0;
 			laddersArr.map((ladder, i) => {
 				return (problemsSolved += ladder.details.problemsSolved);
 			});
+
+			// await ladderService({ div: "2, A" });
 			setIsLoading(false);
 			if (res.most.productiveDay === "Insufficient data") {
 				setIsSuffData(true);
@@ -48,10 +69,10 @@ const Dashboard = props => {
 		})();
 	}, []);
 
-	const handleStalkDost = () => {
-		let { history } = props;
-		history.push("/stalk-friend");
-	};
+	// const handleStalkDost = () => {
+	// 	let { history } = props;
+	// 	history.push("/stalk-friend");
+	// };
 	return (
 		<div className="container">
 			<div
@@ -70,11 +91,25 @@ const Dashboard = props => {
 			<div className="section" hidden={isLoading}>
 				<h4 className="mt-5 fontBd">
 					Dashboard
-					<span
+					{/* <span
 						className="stalk-friend-dashboard"
 						onClick={handleStalkDost}
 					>
 						<FaGhost /> Stalk your friend
+					</span> */}
+					<span className="profile-section">
+						<span>
+							<FaUserSecret />{" "}
+							{user.isLoggedIn ? user.user.handle : null}
+						</span>{" "}
+						<button
+							onClick={() => {
+								localStorage.clear();
+								props.history.push("/login");
+							}}
+						>
+							Logout
+						</button>
 					</span>
 				</h4>
 				<hr />

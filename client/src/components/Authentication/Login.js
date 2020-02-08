@@ -1,28 +1,40 @@
 import React, { useState } from "react";
 // import { Row, Col, Container } from "react-bootstrap";
 import "./style.css";
+import { Toast } from "react-bootstrap";
+
 import Common from "./Common";
-import { loginService } from "../../utils/Services";
+import { loginService, ladderService } from "../../utils/Services";
 
 import { FaGhost } from "react-icons/fa";
 
 const Login = props => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+	const [show, setShow] = useState(false);
+	const [message, setMessage] = useState("");
 	// const [disable, setDisable] = useState(false);
-	// const [show, setShow] = useState(false);
-	// const [message, setMessage] = useState("");
 
 	const handleSubmit = async e => {
 		e.preventDefault();
 		try {
 			const data = { handle: username, password };
+
 			const res = await loginService(data);
+			if (res.message === "invalid user") {
+				console.log("Invalid");
+				setMessage("Please register first");
+				setShow(true);
+			}
 			if (res.message === "success") {
 				const token = res.token;
 				localStorage.setItem("token", token);
 				localStorage.setItem("user_id", res.data._id);
-				props.history.push("/");
+
+				await props.history.push({
+					pathname: "/",
+					state: { update: 1 }
+				});
 			}
 		} catch (err) {
 			console.log(err);
@@ -30,6 +42,19 @@ const Login = props => {
 	};
 	return (
 		<div className="container">
+			<div
+				onClose={() => setShow(false)}
+				show={show}
+				style={{
+					right: 48,
+					top: 48,
+					float: "right",
+					position: "absolute",
+					zIndex: 999
+				}}
+			>
+				{message}
+			</div>
 			<div className="row pt-5 mt-5 mb-5 pb-5">
 				<Common />
 				<div className="col-md-5">
@@ -74,9 +99,9 @@ const Login = props => {
 							{/* <h5 className="text-center hint mb-0">Follow us on twitter</h5> */}
 						</form>
 					</div>
-					<div className="stalk-friend col-12">
+					{/* <div className="stalk-friend col-12">
 						<FaGhost /> Stalk your friend
-					</div>
+					</div> */}
 				</div>
 			</div>
 

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import { FaCheck, FaExclamationTriangle } from "react-icons/fa";
 
-const StalkFriend = () => {
+const StalkFriend = props => {
 	return (
 		<div className="container">
 			<h4 className="mt-5 fontBd">Stalking Friend</h4>
@@ -28,15 +28,15 @@ const StalkFriend = () => {
 						KIET Group of Institutions
 						<hr />
 						<h6 className="fontMd mb-1">Rating: 1456 (Newbie)</h6>
-						<h6 className="fontMd mb-3">Max-Rating: 1456 (Newbie)</h6>
+						<h6 className="fontMd mb-3">
+							Max-Rating: 1456 (Newbie)
+						</h6>
 						<hr />
 						Joined: Date
 						<br />
 						Last Online: date, time
-
 						<h6 className="mt-2 fontBd">more information...</h6>
 					</div>
-
 				</div>
 				<div className="col-lg-8 col-md-6">
 					<div className="recent-actions profile-details p-4">
@@ -53,7 +53,9 @@ const StalkFriend = () => {
 							</span>
 							<div className="floatRt">
 								<span className="mr-4 language">GNU C++14</span>
-								<span className="mr-4 points fontMd">0010/1200</span>
+								<span className="mr-4 points fontMd">
+									0010/1200
+								</span>
 								<span className="time-ago">2 hours ago</span>
 							</div>
 						</div>
@@ -66,7 +68,9 @@ const StalkFriend = () => {
 							</span>
 							<div className="floatRt">
 								<span className="mr-4 language">GNU C++14</span>
-								<span className="mr-4 points fontMd">0010/1200</span>
+								<span className="mr-4 points fontMd">
+									0010/1200
+								</span>
 								<span className="time-ago">2 hours ago</span>
 							</div>
 						</div>
@@ -75,6 +79,6 @@ const StalkFriend = () => {
 			</div>
 		</div>
 	);
-}
+};
 
 export default StalkFriend;

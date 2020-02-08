@@ -1,6 +1,6 @@
 import axios from "axios";
 import { authLogin, authRegister, dashboard, ladderDetail } from "./Routes";
-axios.defaults.baseURL = "http://localhost:5000/api/v1";
+axios.defaults.baseURL = "https://www.coderbano.tech/api/v1/";
 const AUTH_TOKEN = localStorage.getItem("token");
 if (AUTH_TOKEN) {
 	axios.defaults.headers.common["x-auth-token"] = AUTH_TOKEN;
