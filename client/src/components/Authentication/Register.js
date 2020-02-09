@@ -30,10 +30,7 @@ const Register = props => {
 			}
 			if (res.message === "success") {
 				toast.success(`Successfully Registered`);
-
-				setTimeout(() => {
-					props.history.push("/");
-				}, 1200);
+				props.history.push("/");
 			}
 			setIsLoading(false);
 		} catch (err) {
