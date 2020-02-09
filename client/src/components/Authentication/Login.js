@@ -30,8 +30,8 @@ const Login = props => {
 				const token = res.token;
 				localStorage.setItem("token", token);
 				localStorage.setItem("user_id", res.data._id);
-				props.history.push("/");
 				setIsLoading(false);
+				props.history.push("/");
 			}
 		} catch (err) {
 			console.log(err);
