@@ -76,7 +76,11 @@ module.exports.getLadder = async (req, res) => {
 						).toISOString()
 					) {
 						//collect CF subs for batch updation
-						collectSubs.push(codeforcesSubs[j]);
+						if (codeforcesSubs[j].verdict === "OK") {
+							collectSubs.unshift(codeforcesSubs[j]);
+						} else {
+							collectSubs.push(codeforcesSubs[j]);
+						}
 						prevUdpation = true;
 					} else {
 						//not modified, no updation required
@@ -85,7 +89,11 @@ module.exports.getLadder = async (req, res) => {
 				} else {
 					//we don't have that CF sub in our db
 					//get new submisssions ready
-					collectSubs.push(codeforcesSubs[j]);
+					if (codeforcesSubs[j].verdict === "OK") {
+						collectSubs.unshift(codeforcesSubs[j]);
+					} else {
+						collectSubs.push(codeforcesSubs[j]);
+					}
 					prevUdpation = false;
 					// possible optimisation:
 					// 1. we are iterating over every sub just to get the problem attempts count
