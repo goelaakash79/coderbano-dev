@@ -30,13 +30,8 @@ const Login = props => {
 				const token = res.token;
 				localStorage.setItem("token", token);
 				localStorage.setItem("user_id", res.data._id);
-				setTimeout(async () => {
-					await props.history.push({
-						pathname: "/"
-					});
-					window.location.reload();
-				}, 1200);
 				setIsLoading(false);
+				props.history.push("/");
 			}
 		} catch (err) {
 			console.log(err);

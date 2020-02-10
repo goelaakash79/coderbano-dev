@@ -1,12 +1,8 @@
 import axios from "axios";
 import { authLogin, authRegister, dashboard, ladderDetail } from "./Routes";
-axios.defaults.baseURL = "https://coderbano.tech/api/v1/";
-// axios.defaults.baseURL = "http://localhost:5000/api/v1/";
+// axios.defaults.baseURL = "https://coderbano.tech/api/v1/";
+axios.defaults.baseURL = "http://localhost:5000/api/v1/";
 
-const AUTH_TOKEN = localStorage.getItem("token");
-if (AUTH_TOKEN) {
-	axios.defaults.headers.common["x-auth-token"] = AUTH_TOKEN;
-}
 export const loginService = async data => {
 	try {
 		const response = await axios.post(authLogin, data);
@@ -29,11 +25,16 @@ export const registerService = async data => {
 
 export const dashboardService = async () => {
 	try {
-		const response = await axios.get(dashboard);
-		if (response.data.message === "success") {
-			return response.data.data;
-		} else {
-			console.log(response);
+		let AUTH_TOKEN = localStorage.getItem("token");
+		if (AUTH_TOKEN) {
+			const response = await axios.get(dashboard, {
+				headers: { "x-auth-token": AUTH_TOKEN }
+			});
+			if (response.data.message === "success") {
+				return response.data.data;
+			} else {
+				console.log(response);
+			}
 		}
 	} catch (err) {
 		console.log(err.response);
@@ -43,11 +44,17 @@ export const dashboardService = async () => {
 
 export const ladderService = async params => {
 	try {
-		const response = await axios.get(ladderDetail, { params });
-		if (response.data.message === "success") {
-			return response.data.data;
-		} else {
-			console.log(response);
+		let AUTH_TOKEN = localStorage.getItem("token");
+		if (AUTH_TOKEN) {
+			const response = await axios.get(ladderDetail, {
+				headers: { "x-auth-token": AUTH_TOKEN },
+				params
+			});
+			if (response.data.message === "success") {
+				return response.data.data;
+			} else {
+				console.log(response);
+			}
 		}
 	} catch (err) {
 		console.log(err.response);
