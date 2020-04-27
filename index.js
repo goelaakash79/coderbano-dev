@@ -10,7 +10,7 @@ const app = express();
 require("dotenv").config();
 require("./config/dbconnection");
 
-app.use(cors());
+app.use(cors({ exposedHeaders: "x-auth-token" }));
 app.use(compression());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(morgan("dev"));

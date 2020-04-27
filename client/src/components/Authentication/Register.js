@@ -54,10 +54,10 @@ const Register = props => {
 			/>
 			<div className="row pt-5 mt-5 mb-5 pb-5">
 				<Common />
-				<div className="col-md-5">
+				<div className="col-md-5 mt-5">
 					<div className="card register-box p-4 mb-4">
 						<h5 className="fontBd">Become a coder</h5>
-						<p className="fontMd mb-1 mt-4">Enter details</p>
+						<p className="fontMd mb-3 mt-4">Enter details</p>
 						<form onSubmit={handleSubmit}>
 							<input
 								placeholder="pick a username"
@@ -92,21 +92,32 @@ const Register = props => {
 								required
 							/>
 
-							<button
+							{/* <button
 								disabled={isLoading}
 								className="button mb-2"
 							>
 								<FaSpinner hidden={!isLoading} /> Create profile
+							</button> */}
+
+							<button
+								className="button"
+								// loading={isLoading}
+								disabled={isLoading}
+							>
+								<div
+									hidden={!isLoading}
+									className="spinner-border spinner-border-sm text-light"
+									role="status"
+								>
+									<span className="sr-only">Loading...</span>
+								</div>
+								<span hidden={isLoading}>Login</span>
 							</button>
 
 							<hr className="box-hr" />
 							<p className="mb-0" style={{ fontSize: 16 }}>
-								<Link to="/login">Sign In</Link>{" "}
-								<Link
-									to="/reset-password"
-									style={{ float: "right" }}
-								>
-									Reset Password
+								<Link to="/login" style={{ color: "#424242" }}>
+									Already have an account? Login here
 								</Link>
 							</p>
 						</form>
@@ -116,11 +127,6 @@ const Register = props => {
 					</div> */}
 				</div>
 			</div>
-
-			<hr className="bottomline mt-5"></hr>
-			<p className="text-center">
-				Developed under the good works of DSC KIET
-			</p>
 		</div>
 	);
 };

@@ -53,10 +53,10 @@ const Login = props => {
 
 			<div className="row pt-5 mt-5 mb-5 pb-5">
 				<Common />
-				<div className="col-md-5">
+				<div className="col-md-5 mt-5 pt-5">
 					<div className="card register-box p-4 mb-4">
 						<h5 className="fontBd">Hey coder!</h5>
-						<p className="fontMd mb-1 mt-4">
+						<p className="fontMd mb-3 mt-4">
 							Enter account details
 						</p>
 						<form onSubmit={handleSubmit}>
@@ -87,12 +87,11 @@ const Login = props => {
 
 							<hr className="box-hr" />
 							<p className="mb-0" style={{ fontSize: 16 }}>
-								<Link to="/register">Register</Link>{" "}
 								<Link
-									to="/reset-password"
-									style={{ float: "right" }}
+									to="/register"
+									style={{ color: "#424242" }}
 								>
-									Reset Password
+									Don't have an account? Register here
 								</Link>
 							</p>
 							{/* <h5 className="text-center hint mb-0">Follow us on twitter</h5> */}
@@ -103,10 +102,6 @@ const Login = props => {
 					</div> */}
 				</div>
 			</div>
-			<hr className="bottomline mt-5"></hr>
-			<p className="text-center">
-				Developed under the good works of DSC KIET
-			</p>
 		</div>
 	);
 };
