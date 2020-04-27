@@ -8,8 +8,9 @@ import {
 	FaSpinner,
 	FaUserSecret
 } from "react-icons/fa";
-import { dashboardService } from "../../utils/Services";
+import { dashboardService } from "../../utils/services/mainService";
 import authCheck from "../authCheck";
+import { Loading } from "../../utils/_helpers";
 
 const Dashboard = props => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -75,19 +76,7 @@ const Dashboard = props => {
 	// };
 	return (
 		<div className="container">
-			<div
-				className="loader text-center"
-				style={{
-					marginTop: "16em"
-				}}
-				hidden={!isLoading}
-			>
-				<p className="text-center">
-					<FaSpinner />
-					<br />
-					<span className="small">Loading</span>
-				</p>
-			</div>
+			<Loading isLoading={isLoading} />
 			<div className="section" hidden={isLoading}>
 				<h4 className="mt-5 fontBd">
 					Dashboard

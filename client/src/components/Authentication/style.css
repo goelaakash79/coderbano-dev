@@ -12,6 +12,7 @@ input {
 	background-color: #3c83da;
 	font-family: GoogleSansBd;
 	border: 0;
+	min-width: 120px;
 	border-radius: 2px;
 	transition: 0.2s all linear;
 }

@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./style.css";
 import { Link } from "react-router-dom";
 import Common from "./Common";
-import { loginService } from "../../utils/Services";
-
-import { FaSpinner } from "react-icons/fa";
+import authCheck from "../authCheck";
+import { loginService } from "../../utils/services/authService";
 
 const Login = props => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
+	const user = authCheck();
+
+	useEffect(() => {
+		if (user.isLoggedIn) {
+			return props.history.push("/");
+		}
+	}, []);
 
 	const handleSubmit = async e => {
 		e.preventDefault();
@@ -26,15 +32,19 @@ const Login = props => {
 			}
 			if (res.message === "success") {
 				toast.success("Welcome to Coderbano");
-
-				const token = res.token;
-				localStorage.setItem("token", token);
-				localStorage.setItem("user_id", res.data._id);
-				setIsLoading(false);
-				props.history.push("/");
+				setTimeout(() => {
+					setIsLoading(false);
+					const token = res.token;
+					localStorage.setItem("token", token);
+					localStorage.setItem("user_id", res.data._id);
+					setIsLoading(false);
+					props.history.push("/");
+				}, 1000);
 			}
+			setIsLoading(false);
 		} catch (err) {
 			console.log(err);
+			setIsLoading(false);
 		}
 	};
 	return (
@@ -79,10 +89,18 @@ const Login = props => {
 							/>
 
 							<button
+								className="button"
+								// loading={isLoading}
 								disabled={isLoading}
-								className="button mb-2"
 							>
-								<FaSpinner hidden={!isLoading} /> Start Coding
+								<div
+									hidden={!isLoading}
+									className="spinner-border spinner-border-sm text-light"
+									role="status"
+								>
+									<span className="sr-only">Loading...</span>
+								</div>
+								<span hidden={isLoading}>Start Coding</span>
 							</button>
 
 							<hr className="box-hr" />

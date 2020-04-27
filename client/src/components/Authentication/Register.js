@@ -1,17 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.css";
 import Common from "./Common";
 import { Link } from "react-router-dom";
 import { FaGhost, FaSpinner } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
-
-import { registerService } from "../../utils/Services";
+import authCheck from "../authCheck";
+import { registerService } from "../../utils/services/authService";
 
 const Register = props => {
 	const [email, setEmail] = useState("");
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
+
+	const user = authCheck();
+
+	useEffect(() => {
+		if (user.isLoggedIn) {
+			return props.history.push("/");
+		}
+	}, []);
 
 	const handleSubmit = async e => {
 		e.preventDefault();
@@ -30,9 +38,12 @@ const Register = props => {
 			}
 			if (res.message === "success") {
 				toast.success(`Successfully Registered`);
-				setIsLoading(false);
-				props.history.push("/");
+				setTimeout(() => {
+					setIsLoading(false);
+					props.history.push("/");
+				}, 1000);
 			}
+			setIsLoading(false);
 		} catch (err) {
 			// console.log(err);
 			toast.error("😑 Some error occurred, please try again");
@@ -111,11 +122,11 @@ const Register = props => {
 								>
 									<span className="sr-only">Loading...</span>
 								</div>
-								<span hidden={isLoading}>Login</span>
+								<span hidden={isLoading}>Create Profile</span>
 							</button>
 
 							<hr className="box-hr" />
-							<p className="mb-0" style={{ fontSize: 16 }}>
+							<p className="mb-0" style={{ fontSize: 14 }}>
 								<Link to="/login" style={{ color: "#424242" }}>
 									Already have an account? Login here
 								</Link>
