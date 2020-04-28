@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Common from "./Common";
 import authCheck from "../authCheck";
 import { loginService } from "../../utils/services/authService";
+import ButtonLoading from "../ButtonLoading";
 
 const Login = props => {
 	const [username, setUsername] = useState("");
@@ -93,13 +94,7 @@ const Login = props => {
 								// loading={isLoading}
 								disabled={isLoading}
 							>
-								<div
-									hidden={!isLoading}
-									className="spinner-border spinner-border-sm text-light"
-									role="status"
-								>
-									<span className="sr-only">Loading...</span>
-								</div>
+								<ButtonLoading isLoading={isLoading} />
 								<span hidden={isLoading}>Start Coding</span>
 							</button>
 

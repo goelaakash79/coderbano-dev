@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
 import { Link } from "react-router-dom";
-import {
-	FaKeyboard,
-	FaLock,
-	FaGhost,
-	FaSpinner,
-	FaUserSecret
-} from "react-icons/fa";
+import { FaKeyboard, FaLock } from "react-icons/fa";
+
 import { dashboardService } from "../../utils/services/mainService";
 import authCheck from "../authCheck";
-import { Loading } from "../../utils/_helpers";
+import Loading from "../Loading";
+import Navbar from "./Navbar";
 
 const Dashboard = props => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -34,14 +30,18 @@ const Dashboard = props => {
 		}
 		(async () => {
 			const res = await dashboardService();
+
+			if (res.message === "success") {
+				setIsLoading(false);
+			}
 			if (props.location.state) {
 				if (props.location.state.update) {
 				}
 			}
-			let laddersArr = Object.keys(res.ladderDetails).map(
+			let laddersArr = Object.keys(res.data.ladderDetails).map(
 				(ladder, id) => {
 					return {
-						details: Object.values(res.ladderDetails)[id],
+						details: Object.values(res.data.ladderDetails)[id],
 						name: ladder
 					};
 				}
@@ -56,14 +56,14 @@ const Dashboard = props => {
 
 			// await ladderService({ div: "2, A" });
 			setIsLoading(false);
-			if (res.most.productiveDay === "Insufficient data") {
+			if (res.data.most.productiveDay === "Insufficient data") {
 				setIsSuffData(true);
 			} else {
 				setStats({
-					productiveDay: res.most.productiveDay,
-					productiveTimeOfDay: res.most.productiveTimeOfDay,
-					usedLanguage: res.most.usedLanguage,
-					joined: res.createdAt,
+					productiveDay: res.data.most.productiveDay,
+					productiveTimeOfDay: res.data.most.productiveTimeOfDay,
+					usedLanguage: res.data.most.usedLanguage,
+					joined: res.data.createdAt,
 					problemsSolved
 				});
 			}
@@ -78,14 +78,15 @@ const Dashboard = props => {
 		<div className="container">
 			<Loading isLoading={isLoading} />
 			<div className="section" hidden={isLoading}>
-				<h4 className="mt-5 fontBd">
+				<Navbar />
+				{/* <h4 className="mt-5 fontBd">
 					Dashboard
 					{/* <span
 						className="stalk-friend-dashboard"
 						onClick={handleStalkDost}
 					>
 						<FaGhost /> Stalk your friend
-					</span> */}
+					</span> *
 					<span className="profile-section">
 						<span>
 							<FaUserSecret />{" "}
@@ -101,7 +102,7 @@ const Dashboard = props => {
 						</button>
 					</span>
 				</h4>
-				<hr />
+				<hr /> */}
 				<div className="row mt-5">
 					<div className="col-md-9">
 						<h5 className="fontMd">Codeforces Ladders</h5>

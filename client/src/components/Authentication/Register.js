@@ -6,6 +6,7 @@ import { FaGhost, FaSpinner } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import authCheck from "../authCheck";
 import { registerService } from "../../utils/services/authService";
+import ButtonLoading from "../ButtonLoading";
 
 const Register = props => {
 	const [email, setEmail] = useState("");
@@ -115,13 +116,7 @@ const Register = props => {
 								// loading={isLoading}
 								disabled={isLoading}
 							>
-								<div
-									hidden={!isLoading}
-									className="spinner-border spinner-border-sm text-light"
-									role="status"
-								>
-									<span className="sr-only">Loading...</span>
-								</div>
+								<ButtonLoading isLoading={isLoading} />
 								<span hidden={isLoading}>Create Profile</span>
 							</button>
 

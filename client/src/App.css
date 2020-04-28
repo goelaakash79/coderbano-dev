@@ -46,3 +46,27 @@ body {
 	/* border: 1.2px solid #565859; */
 	border-radius: 2px;
 }
+
+.navlink {
+	color: #707070;
+}
+
+.navlink:hover {
+	color: #565859;
+}
+
+.tag-primary {
+	border-radius: 4px;
+	font-size: 12px;
+	color: #ffffff;
+	background-color: #cbe6f6;
+}
+
+.tag-secondary {
+}
+
+/* .navbar-text a {
+	font-family: GoogleSansMd;
+	font-size: 16px;
+	color: #565859 !important;
+} */
