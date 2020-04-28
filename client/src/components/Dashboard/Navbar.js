@@ -14,7 +14,7 @@ export default props => {
 	const user = authCheck();
 	return (
 		<>
-			<Navbar className="mt-4 fontBd ml-0 pl-0 pb-0 mb-0 mr-0 pr-0">
+			<Navbar className="mt-3 fontBd ml-0 pl-0 pb-0 mb-0 mr-0 pr-0">
 				<Navbar.Brand>Coderbano</Navbar.Brand>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse
@@ -78,7 +78,7 @@ export default props => {
 				</Navbar.Collapse> */}
 			</Navbar>
 
-			<hr />
+			<hr className="mb-0 pb-0" />
 		</>
 	);
 };
