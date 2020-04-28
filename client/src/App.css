@@ -42,8 +42,6 @@ body {
 }
 
 .register-box input {
-	/* border: 2px solid rgba(60, 131, 218, 0.8); */
-	/* border: 1.2px solid #565859; */
 	border-radius: 2px;
 }
 
@@ -61,12 +59,3 @@ body {
 	color: #ffffff;
 	background-color: #cbe6f6;
 }
-
-.tag-secondary {
-}
-
-/* .navbar-text a {
-	font-family: GoogleSansMd;
-	font-size: 16px;
-	color: #565859 !important;
-} */
