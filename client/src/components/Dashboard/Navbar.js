@@ -22,26 +22,26 @@ export default props => {
 					id="basic-navbar-nav"
 				>
 					<Nav className="justify-content-end">
-						<Nav.Link>
+						<Navbar.Text to="/" className="navlink">
 							<Link to="/" className="navlink">
 								Dashboard
 							</Link>
-						</Nav.Link>
-						<Nav.Link>
+						</Navbar.Text>
+						<Navbar.Text>
 							<Link to="/practice" className="navlink">
 								Practice
 							</Link>
-						</Nav.Link>
-						<Nav.Link>
+						</Navbar.Text>
+						<Navbar.Text>
 							<Link to="/contests" className="navlink">
 								Contests
 							</Link>
-						</Nav.Link>
-						<Nav.Link>
+						</Navbar.Text>
+						<Navbar.Text>
 							<Link to="/code" className="navlink">
 								Code
 							</Link>
-						</Nav.Link>
+						</Navbar.Text>
 
 						<NavDropdown title="User" id="basic-nav-dropdown">
 							<NavDropdown.Item href="#action/3.3">

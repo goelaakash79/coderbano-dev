@@ -46,7 +46,9 @@ body {
 }
 
 .navlink {
-	color: #707070;
+	color: #707070 !important;
+	font-family: GoogleSansMd;
+	margin-right: 12px;
 }
 
 .navlink:hover {

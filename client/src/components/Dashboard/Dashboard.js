@@ -79,37 +79,13 @@ const Dashboard = props => {
 			<Loading isLoading={isLoading} />
 			<div className="section" hidden={isLoading}>
 				<Navbar />
-				{/* <h4 className="mt-5 fontBd">
-					Dashboard
-					{/* <span
-						className="stalk-friend-dashboard"
-						onClick={handleStalkDost}
-					>
-						<FaGhost /> Stalk your friend
-					</span> *
-					<span className="profile-section">
-						<span>
-							<FaUserSecret />{" "}
-							{user.isLoggedIn ? user.user.handle : null}
-						</span>{" "}
-						<button
-							onClick={() => {
-								localStorage.clear();
-								props.history.push("/login");
-							}}
-						>
-							Logout
-						</button>
-					</span>
-				</h4>
-				<hr /> */}
 				<div className="row mt-4">
 					<div className="col-md-12">
 						<h5 className="fontMd">Codeforces Ladders</h5>
 						<div className="row mt-4">
 							{ladders.map((ladder, idx) => {
 								return (
-									<div className="col-md-4 mb-4" key={idx}>
+									<div className="col-md-4 mb-2" key={idx}>
 										<div
 											className={`card ladder-card p-4 ${
 												ladder.details.unlocked === true

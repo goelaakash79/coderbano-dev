@@ -129,7 +129,7 @@ thead tr th {
 }
 
 .outputBox {
-	background-color: #263238;
+	background-color: #263238 !important;
 	height: 400px;
 	border: 0;
 	border-radius: 6px !important;
