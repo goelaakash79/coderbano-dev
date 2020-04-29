@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import "codemirror/mode/javascript/javascript";
-// import { runProgramService, compileProgramService } from "../../utils/services/";
+import {
+	runProgramService,
+	compileProgramService
+} from "../../utils/services/mainService";
 import { FaSpinner, FaSyncAlt } from "react-icons/fa";
 import "./style.css";
 import Navbar from "./Navbar";
@@ -24,42 +27,42 @@ export default props => {
 		setOutput("/*** compiling ***/");
 
 		try {
-			// const res = await compileProgramService({ source: code });
-			// if (res.message === "success")
-			// 	if (res.result.compile_status === "OK") {
-			// 		setIsLoading(false);
-			// 		setCompiled(true);
-			// 		setOutput(null);
-			// 	}
-			// if (res.error) {
-			// 	setIsLoading(false);
-			// 	setOutput("/*** some unexpected error occurred ***/");
-			// }
+			const res = await compileProgramService({ source: code });
+			if (res.message === "success")
+				if (res.result.compile_status === "OK") {
+					setIsLoading(false);
+					setCompiled(true);
+					setOutput(null);
+				}
+			if (res.error) {
+				setIsLoading(false);
+				setOutput("/*** some unexpected error occurred ***/");
+			}
 		} catch (err) {
 			console.log(err);
-			// if (err.data.error) {
-			// 	setIsLoading(false);
-			// 	setOutput("/*** some unexpected error occurred ***/");
-			// }
+			if (err.data.error) {
+				setIsLoading(false);
+				setOutput("/*** some unexpected error occurred ***/");
+			}
 		}
 	};
 	const handleRun = async () => {
 		setIsLoading(true);
 		setOutput("/*** executing ***/");
 		try {
-			// const res = await runProgramService({ source: code });
-			// if (res.message === "success")
-			// 	if (
-			// 		res.result.compile_status === "OK" &&
-			// 		res.result.run_status.status === "AC"
-			// 	) {
-			// 		setIsLoading(false);
-			// 		setOutput(res.result.run_status.output);
-			// 	}
-			// if (res.error) {
-			// 	setIsLoading(false);
-			// 	setOutput("/*** some unexpected error occurred ***/");
-			// }
+			const res = await runProgramService({ source: code });
+			if (res.message === "success")
+				if (
+					res.result.compile_status === "OK" &&
+					res.result.run_status.status === "AC"
+				) {
+					setIsLoading(false);
+					setOutput(res.result.run_status.output);
+				}
+			if (res.error) {
+				setIsLoading(false);
+				setOutput("/*** some unexpected error occurred ***/");
+			}
 		} catch (err) {}
 	};
 
