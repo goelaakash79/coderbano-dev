@@ -103,13 +103,13 @@ const Dashboard = props => {
 					</span>
 				</h4>
 				<hr /> */}
-				<div className="row mt-5">
-					<div className="col-md-9">
+				<div className="row mt-4">
+					<div className="col-md-12">
 						<h5 className="fontMd">Codeforces Ladders</h5>
 						<div className="row mt-4">
 							{ladders.map((ladder, idx) => {
 								return (
-									<div className="col-md-6 mb-4" key={idx}>
+									<div className="col-md-4 mb-4" key={idx}>
 										<div
 											className={`card ladder-card p-4 ${
 												ladder.details.unlocked === true
@@ -162,7 +162,7 @@ const Dashboard = props => {
 							})}
 						</div>
 					</div>
-					<div className="col-md-3">
+					{/* <div className="col-md-3">
 						<h5 className="fontMd">Stats</h5>
 
 						<div className="stats-wrapper mt-4" hidden={isSuffData}>
@@ -217,7 +217,7 @@ const Dashboard = props => {
 							click on unlock, to unlock that particular ladder,
 							and we will add them to your statistics.
 						</div>
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</div>

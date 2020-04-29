@@ -25,6 +25,16 @@ module.exports.dashboard = async (req, res) => {
 
 module.exports.getLadder = async (req, res) => {
 	const { div } = req.query;
+	let problems = await Problem.find({ div });
+	return res.status(200).json({
+		message: "success",
+		error: false,
+		problems
+	});
+};
+
+module.exports.getLadder2 = async (req, res) => {
+	const { div } = req.query;
 	let allSubs = await Submissions.find({ user: req.user.id }).populate({
 		path: "problem",
 		match: { div }

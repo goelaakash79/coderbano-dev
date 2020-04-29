@@ -70,13 +70,6 @@ export default props => {
 							>
 								{state.heading} Contests
 							</h5>
-							<p
-								className="description mt-0 pt-0"
-								style={{ color: "#707070" }}
-							>
-								Here you can check all the{" "}
-								{state.heading.toLowerCase()} coding contests!
-							</p>
 						</div>
 					</div>
 					<div hidden={!state.isLoading} className="text-center">

@@ -36,7 +36,7 @@ a:hover {
 .ladder-card {
 	color: #ffffff;
 	border: 0;
-	background: #3c83da;
+	background: #3c83da !important;
 }
 
 .continue-div {
