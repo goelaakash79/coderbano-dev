@@ -40,7 +40,7 @@ const Login = props => {
 					localStorage.setItem("user_id", res.data._id);
 					setIsLoading(false);
 					props.history.push("/");
-				}, 1000);
+				}, 600);
 			}
 			setIsLoading(false);
 		} catch (err) {

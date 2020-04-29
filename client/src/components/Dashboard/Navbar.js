@@ -1,14 +1,9 @@
 import React from "react";
 import authCheck from "../authCheck";
-import {
-	FaKeyboard,
-	FaLock,
-	FaGhost,
-	FaSpinner,
-	FaUserSecret
-} from "react-icons/fa";
+import { FaUserSecret } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { logout } from "../../utils/services/authService";
 
 export default props => {
 	const user = authCheck();
@@ -22,7 +17,7 @@ export default props => {
 					id="basic-navbar-nav"
 				>
 					<Nav className="justify-content-end">
-						<Navbar.Text to="/" className="navlink">
+						<Navbar.Text>
 							<Link to="/" className="navlink">
 								Dashboard
 							</Link>
@@ -43,7 +38,11 @@ export default props => {
 							</Link>
 						</Navbar.Text>
 
-						<NavDropdown title="User" id="basic-nav-dropdown">
+						<NavDropdown
+							title="User"
+							className="ml-0 mr-0 pl-0"
+							id="basic-nav-dropdown"
+						>
 							<NavDropdown.Item href="#action/3.3">
 								<span>
 									<FaUserSecret />{" "}
@@ -54,14 +53,7 @@ export default props => {
 
 							<NavDropdown.Item href="#action/3.4">
 								<span className="profile-section">
-									<button
-										onClick={() => {
-											localStorage.clear();
-											props.history.push("/login");
-										}}
-									>
-										Logout
-									</button>
+									<button onClick={logout}>Logout</button>
 								</span>
 							</NavDropdown.Item>
 						</NavDropdown>

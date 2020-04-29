@@ -37,7 +37,7 @@ const registerService = async data => {
 
 const logout = () => {
 	localStorage.clear();
-	window.location.push("/login");
+	window.location.assign("/login");
 };
 
 export { loginService, logout, isLoggedIn, registerService };

@@ -42,7 +42,7 @@ const Register = props => {
 				setTimeout(() => {
 					setIsLoading(false);
 					props.history.push("/");
-				}, 1000);
+				}, 600);
 			}
 			setIsLoading(false);
 		} catch (err) {
