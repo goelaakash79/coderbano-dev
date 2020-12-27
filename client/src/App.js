@@ -9,7 +9,7 @@ import Login from "./components/Authentication/Login";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Ladder from "./components/Dashboard/Ladder";
 import Page404 from "./components/404";
-// import StalkFriend from "./components/Friend/StalkFriend";
+import StalkFriend from "./components/Friend/StalkFriend";
 
 function App() {
 	return (
@@ -19,11 +19,13 @@ function App() {
 				<Route exact path="/ladder/:div" component={Ladder} />
 				<Route exact path="/register" component={Register} />
 				<Route exact path="/login" component={Login} />
-				{/* <Route
+				<Route
 					exact
 					path="/stalk-friend"
-					component={isLoggedIn === true ? StalkFriend : Login}
-				/> */}
+					component={
+						localStorage.getItem("token") ? StalkFriend : Login
+					}
+				/>
 				<Route component={Page404} />
 			</Switch>
 		</Router>

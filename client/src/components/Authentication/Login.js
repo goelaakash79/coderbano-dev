@@ -22,7 +22,6 @@ const Login = props => {
 			const res = await loginService(data);
 			if (res.error === true) {
 				toast.error(res.message);
-				setIsLoading(false);
 			}
 			if (res.message === "success") {
 				toast.success("Welcome to Coderbano");
@@ -30,11 +29,12 @@ const Login = props => {
 				const token = res.token;
 				localStorage.setItem("token", token);
 				localStorage.setItem("user_id", res.data._id);
-				setIsLoading(false);
 				props.history.push("/");
 			}
+			setIsLoading(false);
 		} catch (err) {
 			console.log(err);
+			setIsLoading(false);
 		}
 	};
 	return (

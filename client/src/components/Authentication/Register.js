@@ -30,9 +30,9 @@ const Register = props => {
 			}
 			if (res.message === "success") {
 				toast.success(`Successfully Registered`);
-				setIsLoading(false);
 				props.history.push("/");
 			}
+			setIsLoading(false);
 		} catch (err) {
 			// console.log(err);
 			toast.error("😑 Some error occurred, please try again");

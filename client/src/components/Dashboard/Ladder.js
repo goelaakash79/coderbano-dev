@@ -7,7 +7,7 @@ import "./style.css";
 const Ladder = props => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [solvedProbs, setSolvedProbs] = useState([]);
-	const [currentProb, setCurrentProb] = useState({});
+	const [currentProb, setCurrentProb] = useState(null);
 	const params = { div: props.location.state.div };
 
 	useEffect(() => {
@@ -19,6 +19,7 @@ const Ladder = props => {
 				setIsLoading(false);
 			} catch (err) {
 				console.log(err);
+				setIsLoading(false);
 			}
 		})();
 	}, []);
@@ -74,29 +75,33 @@ const Ladder = props => {
 									>
 										<td>{++i}</td>
 										<td>
-											<Link
+											<a
+												rel="noopener noreferrer"
+												target="_blank"
 												className="problem-link"
-												to={problem.problem.link}
+												href={problem.problem.link}
 											>
 												{problem.problem.name}
-											</Link>
+											</a>
 										</td>
 										<td>{problem.problem.level}</td>
 										<td>{problem.status}</td>
 									</tr>
 								);
 							})}
-							{solvedProbs.length === 0 ? (
+							{currentProb ? (
 								<tr key={currentProb.id}>
 									<td>{currentProb.id}</td>
 									<td>
 										{currentProb.link ? (
-											<Link
+											<a
+												rel="noopener noreferrer"
+												target="_blank"
 												className="problem-link"
-												to={currentProb.link}
+												href={currentProb.link}
 											>
 												{currentProb.name}
-											</Link>
+											</a>
 										) : null}
 									</td>
 									<td>{currentProb.level}</td>
