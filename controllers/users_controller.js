@@ -25,16 +25,6 @@ module.exports.dashboard = async (req, res) => {
 
 module.exports.getLadder = async (req, res) => {
 	const { div } = req.query;
-	let problems = await Problem.find({ div });
-	return res.status(200).json({
-		message: "success",
-		error: false,
-		problems
-	});
-};
-
-module.exports.getLadder2 = async (req, res) => {
-	const { div } = req.query;
 	let allSubs = await Submissions.find({ user: req.user.id }).populate({
 		path: "problem",
 		match: { div }
@@ -86,7 +76,11 @@ module.exports.getLadder2 = async (req, res) => {
 						).toISOString()
 					) {
 						//collect CF subs for batch updation
-						collectSubs.push(codeforcesSubs[j]);
+						if (codeforcesSubs[j].verdict === "OK") {
+							collectSubs.unshift(codeforcesSubs[j]);
+						} else {
+							collectSubs.push(codeforcesSubs[j]);
+						}
 						prevUdpation = true;
 					} else {
 						//not modified, no updation required
@@ -95,7 +89,11 @@ module.exports.getLadder2 = async (req, res) => {
 				} else {
 					//we don't have that CF sub in our db
 					//get new submisssions ready
-					collectSubs.push(codeforcesSubs[j]);
+					if (codeforcesSubs[j].verdict === "OK") {
+						collectSubs.unshift(codeforcesSubs[j]);
+					} else {
+						collectSubs.push(codeforcesSubs[j]);
+					}
 					prevUdpation = false;
 					// possible optimisation:
 					// 1. we are iterating over every sub just to get the problem attempts count

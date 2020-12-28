@@ -22,21 +22,21 @@ export default props => {
 								Dashboard
 							</Link>
 						</Navbar.Text>
-						<Navbar.Text>
+						{/* <Navbar.Text>
 							<Link to="/practice" className="navlink">
 								Practice
 							</Link>
-						</Navbar.Text>
-						<Navbar.Text>
+						</Navbar.Text> */}
+						{/* <Navbar.Text>
 							<Link to="/contests" className="navlink">
 								Contests
 							</Link>
-						</Navbar.Text>
-						<Navbar.Text>
+						</Navbar.Text> */}
+						{/* <Navbar.Text>
 							<Link to="/code" className="navlink">
 								Code
 							</Link>
-						</Navbar.Text>
+						</Navbar.Text> */}
 
 						<NavDropdown
 							title="User"
@@ -74,26 +74,3 @@ export default props => {
 		</>
 	);
 };
-
-{
-	/* <span
-						className="stalk-friend-dashboard"
-						onClick={handleStalkDost}
-					>
-						<FaGhost /> Stalk your friend
-					</span> *
-				<span className="profile-section">
-					<span>
-						<FaUserSecret />{" "}
-						{user.isLoggedIn ? user.user.handle : null}
-					</span>{" "}
-					<button
-						onClick={() => {
-							localStorage.clear();
-							props.history.push("/login");
-						}}
-					>
-						Logout
-					</button>
-				</span> */
-}

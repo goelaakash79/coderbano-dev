@@ -42,7 +42,7 @@ a:hover {
 .continue-div {
 	color: #ffffff;
 	border: 0;
-	background: #0f9d58;
+	background: #0f9d58 !important;
 }
 
 .green {

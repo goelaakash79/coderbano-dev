@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./style.css";
 import Common from "./Common";
 import { Link } from "react-router-dom";
-import { FaGhost, FaSpinner } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import authCheck from "../authCheck";
 import { registerService } from "../../utils/services/authService";
@@ -20,7 +19,7 @@ const Register = props => {
 		if (user.isLoggedIn) {
 			return props.history.push("/");
 		}
-	}, []);
+	}, [props.history, user.isLoggedIn]);
 
 	const handleSubmit = async e => {
 		e.preventDefault();
@@ -39,10 +38,7 @@ const Register = props => {
 			}
 			if (res.message === "success") {
 				toast.success(`Successfully Registered`);
-				setTimeout(() => {
-					setIsLoading(false);
-					props.history.push("/");
-				}, 600);
+				props.history.push("/");
 			}
 			setIsLoading(false);
 		} catch (err) {

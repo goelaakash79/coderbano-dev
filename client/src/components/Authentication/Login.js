@@ -18,7 +18,7 @@ const Login = props => {
 		if (user.isLoggedIn) {
 			return props.history.push("/");
 		}
-	}, []);
+	}, [props.history, user.isLoggedIn]);
 
 	const handleSubmit = async e => {
 		e.preventDefault();
@@ -29,18 +29,14 @@ const Login = props => {
 			const res = await loginService(data);
 			if (res.error === true) {
 				toast.error(res.message);
-				setIsLoading(false);
 			}
 			if (res.message === "success") {
 				toast.success("Welcome to Coderbano");
-				setTimeout(() => {
-					setIsLoading(false);
-					const token = res.token;
-					localStorage.setItem("token", token);
-					localStorage.setItem("user_id", res.data._id);
-					setIsLoading(false);
-					props.history.push("/");
-				}, 600);
+
+				const token = res.token;
+				localStorage.setItem("token", token);
+				localStorage.setItem("user_id", res.data._id);
+				props.history.push("/");
 			}
 			setIsLoading(false);
 		} catch (err) {

@@ -2,5 +2,7 @@ node_modules
 .env
 package-lock.json
 **/*.log
+yarn.lock
+**/*.log
 # Local Netlify folder
 .netlify
