@@ -74,26 +74,3 @@ export default props => {
 		</>
 	);
 };
-
-{
-	/* <span
-						className="stalk-friend-dashboard"
-						onClick={handleStalkDost}
-					>
-						<FaGhost /> Stalk your friend
-					</span> *
-				<span className="profile-section">
-					<span>
-						<FaUserSecret />{" "}
-						{user.isLoggedIn ? user.user.handle : null}
-					</span>{" "}
-					<button
-						onClick={() => {
-							localStorage.clear();
-							props.history.push("/login");
-						}}
-					>
-						Logout
-					</button>
-				</span> */
-}

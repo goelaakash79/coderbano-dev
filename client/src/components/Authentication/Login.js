@@ -18,7 +18,7 @@ const Login = props => {
 		if (user.isLoggedIn) {
 			return props.history.push("/");
 		}
-	}, []);
+	}, [props.history, user.isLoggedIn]);
 
 	const handleSubmit = async e => {
 		e.preventDefault();

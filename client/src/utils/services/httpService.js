@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:5000/api/v1";
+axios.defaults.baseURL = "https://coderbano-api.herokuapp.com/api/v1";
 
 axios.interceptors.response.use(
 	response => {
@@ -27,7 +27,7 @@ axios.interceptors.response.use(
 );
 
 axios.interceptors.request.use(function (config) {
-	config.baseURL = "http://localhost:5000/api/v1";
+	config.baseURL = "https://coderbano-api.herokuapp.com/api/v1";
 	return config;
 });
 

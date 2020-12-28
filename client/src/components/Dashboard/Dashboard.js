@@ -68,6 +68,7 @@ const Dashboard = props => {
 				setIsSuffData(true);
 			}
 		})();
+		// eslint-disable-next-line
 	}, []);
 
 	return (

@@ -12,7 +12,7 @@ import Login from "./components/Authentication/Login";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Ladder from "./components/Dashboard/Ladder";
 // import CodeEditor from "./components/Dashboard/CodeEditor";
-import ContestsPage from "./components/Dashboard/ContestsPage";
+// import ContestsPage from "./components/Dashboard/ContestsPage";
 import Page404 from "./components/404";
 import StalkFriend from "./components/Friend/StalkFriend";
 

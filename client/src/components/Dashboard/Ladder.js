@@ -22,6 +22,7 @@ const Ladder = props => {
 				setIsLoading(false);
 			}
 		})();
+		// eslint-disable-next-line
 	}, []);
 	return (
 		<div className="container">

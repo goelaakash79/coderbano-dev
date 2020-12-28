@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./style.css";
 import { FaCheck, FaExclamationTriangle } from "react-icons/fa";
 
-const StalkFriend = props => {
+const StalkFriend = () => {
 	return (
 		<div className="container">
 			<h4 className="mt-5 fontBd">Stalking Friend</h4>
