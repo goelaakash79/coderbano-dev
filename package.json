@@ -18,7 +18,6 @@
     "cors": "^2.8.5",
     "create-react-app": "^3.3.0",
     "crypto": "^1.0.1",
-    "date-fns": "^2.16.1",
     "dotenv": "^7.0.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
