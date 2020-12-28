@@ -22,21 +22,21 @@ export default props => {
 								Dashboard
 							</Link>
 						</Navbar.Text>
-						<Navbar.Text>
+						{/* <Navbar.Text>
 							<Link to="/practice" className="navlink">
 								Practice
 							</Link>
-						</Navbar.Text>
-						<Navbar.Text>
+						</Navbar.Text> */}
+						{/* <Navbar.Text>
 							<Link to="/contests" className="navlink">
 								Contests
 							</Link>
-						</Navbar.Text>
-						<Navbar.Text>
+						</Navbar.Text> */}
+						{/* <Navbar.Text>
 							<Link to="/code" className="navlink">
 								Code
 							</Link>
-						</Navbar.Text>
+						</Navbar.Text> */}
 
 						<NavDropdown
 							title="User"

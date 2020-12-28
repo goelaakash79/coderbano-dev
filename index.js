@@ -41,8 +41,6 @@ app.use("/api/v1/auth", require("./routes/api/v1/auth"));
 app.use("/api/v1/users", require("./routes/api/v1/users"));
 app.use("/api/v1/code", require("./routes/api/v1/indexRouter"));
 
-app.use("/test", require("./routes/api/v1/test"));
-
 app.use("*", notFound);
 
 //Error Handlers

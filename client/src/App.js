@@ -11,7 +11,7 @@ import Login from "./components/Authentication/Login";
 
 import Dashboard from "./components/Dashboard/Dashboard";
 import Ladder from "./components/Dashboard/Ladder";
-import CodeEditor from "./components/Dashboard/CodeEditor";
+// import CodeEditor from "./components/Dashboard/CodeEditor";
 import ContestsPage from "./components/Dashboard/ContestsPage";
 import Page404 from "./components/404";
 import StalkFriend from "./components/Friend/StalkFriend";
@@ -22,8 +22,8 @@ function App() {
 			<Switch>
 				<Route exact path="/" component={Dashboard} />
 				<Route exact path="/ladder/:div" component={Ladder} />
-				<Route exact path="/code" component={CodeEditor} />
-				<Route exact path="/contests" component={ContestsPage} />
+				{/* <Route exact path="/code" component={CodeEditor} /> */}
+				{/* <Route exact path="/contests" component={ContestsPage} /> */}
 				<Route exact path="/register" component={Register} />
 				<Route exact path="/login" component={Login} />
 				<Route

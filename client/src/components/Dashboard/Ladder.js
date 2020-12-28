@@ -5,14 +5,17 @@ import Loading from "../Loading";
 import "./style.css";
 const Ladder = props => {
 	const [isLoading, setIsLoading] = useState(true);
-	const [problems, setProblems] = useState([]);
+	const [submissions, setSubmissions] = useState([]);
+	const [unlockedProblem, setUnlockedProblem] = useState(null);
 	const params = { div: props.match.params.div };
 
 	useEffect(() => {
 		(async () => {
 			try {
 				const res = await ladderService(params);
-				setProblems(res.problems);
+				console.log(res);
+				setSubmissions(res.data.divSubs);
+				setUnlockedProblem(res.data.unlockedProblem);
 				setIsLoading(false);
 			} catch (err) {
 				console.log(err);
@@ -40,12 +43,12 @@ const Ladder = props => {
 								<th>#</th>
 								<th>Problem</th>
 								<th>Difficulty Level</th>
-								{/* <th>Status</th> */}
+								<th>Status</th>
 							</tr>
 						</thead>
 
 						<tbody hidden={isLoading}>
-							{problems.map((problem, i) => {
+							{submissions.map((submission, i) => {
 								return (
 									<tr key={i}>
 										<td>{++i}</td>
@@ -54,16 +57,35 @@ const Ladder = props => {
 												rel="noopener noreferrer"
 												target="_blank"
 												className="problem-link"
-												to={problem.link}
+												href={submission.problem.link}
 											>
-												{problem.name}
+												{submission.problem.name}
 											</a>
 										</td>
-										<td>{problem.level}</td>
-										{/* <td>{problem.status}</td> */}
+										<td>{submission.problem.level}</td>
+										<td className="green">
+											{submission.status}
+										</td>
 									</tr>
 								);
 							})}
+							{unlockedProblem ? (
+								<tr>
+									<td>{submissions.length + 1}</td>
+									<td>
+										<a
+											rel="noopener noreferrer"
+											target="_blank"
+											className="problem-link"
+											href={unlockedProblem.link}
+										>
+											{unlockedProblem.name}
+										</a>
+									</td>
+									<td>{unlockedProblem.level}</td>
+									<td className="text-danger">unsolved</td>
+								</tr>
+							) : null}
 						</tbody>
 					</table>
 				</div>
