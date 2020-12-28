@@ -10,7 +10,7 @@ const app = express();
 require("dotenv").config();
 require("./config/dbconnection");
 
-app.use(cors());
+app.use(cors({ exposedHeaders: "x-auth-token" }));
 app.use(compression());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(morgan("dev"));
@@ -39,6 +39,7 @@ const Submissions = require("./models/Submissions");
 // Routes
 app.use("/api/v1/auth", require("./routes/api/v1/auth"));
 app.use("/api/v1/users", require("./routes/api/v1/users"));
+app.use("/api/v1/code", require("./routes/api/v1/indexRouter"));
 
 app.use("/test", require("./routes/api/v1/test"));
 

@@ -36,7 +36,7 @@ a:hover {
 .ladder-card {
 	color: #ffffff;
 	border: 0;
-	background: #3c83da;
+	background: #3c83da !important;
 }
 
 .continue-div {
@@ -97,22 +97,16 @@ thead tr th {
 	text-align: center;
 }
 
-.profile-section {
+/* .profile-section {
 	float: right;
-}
-
-.profile-section span {
-	font-size: 16px;
-	padding: 8px 0;
-	text-align: center;
-}
+} */
 
 .profile-section button {
 	border: 0;
-	padding: 4px 8px;
+	/* padding: 4px 8px; */
 	border-radius: 2px;
 	font-size: 16px;
-
+	width: 100%;
 	color: #ffffff;
 	background-color: #f4b400;
 }
@@ -126,3 +120,40 @@ thead tr th {
 	/* background-color: rgb(15, 157, 88, 0.2) !important; */
 	background-color: #ccc !important;
 }
+
+.CodeMirror {
+	height: 400px;
+	border: 0;
+	border-radius: 6px !important;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.outputBox {
+	background-color: #263238 !important;
+	height: 400px;
+	border: 0;
+	border-radius: 6px !important;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.24);
+	color: #ffffff;
+}
+
+.outputBox h5 {
+	font-size: 16px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid #d5d5d5;
+	font-weight: 700;
+	color: #d5d5d5;
+}
+
+/* .highlight {
+	color: #4c566a;
+	font-weight: 700;
+} */
+
+/* .heading {
+	font-weight: 700;
+} */
+
+/* span {
+	cursor: pointer;
+} */

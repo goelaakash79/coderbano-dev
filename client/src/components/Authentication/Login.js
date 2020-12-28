@@ -1,17 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./style.css";
 import { Link } from "react-router-dom";
 import Common from "./Common";
-import { loginService } from "../../utils/Services";
-
-import { FaSpinner } from "react-icons/fa";
+import authCheck from "../authCheck";
+import { loginService } from "../../utils/services/authService";
+import ButtonLoading from "../ButtonLoading";
 
 const Login = props => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
+	const user = authCheck();
+
+	useEffect(() => {
+		if (user.isLoggedIn) {
+			return props.history.push("/");
+		}
+	}, []);
 
 	const handleSubmit = async e => {
 		e.preventDefault();
@@ -53,10 +60,10 @@ const Login = props => {
 
 			<div className="row pt-5 mt-5 mb-5 pb-5">
 				<Common />
-				<div className="col-md-5">
+				<div className="col-md-5 mt-5 pt-5">
 					<div className="card register-box p-4 mb-4">
 						<h5 className="fontBd">Hey coder!</h5>
-						<p className="fontMd mb-1 mt-4">
+						<p className="fontMd mb-3 mt-4">
 							Enter account details
 						</p>
 						<form onSubmit={handleSubmit}>
@@ -79,20 +86,21 @@ const Login = props => {
 							/>
 
 							<button
+								className="button"
+								// loading={isLoading}
 								disabled={isLoading}
-								className="button mb-2"
 							>
-								<FaSpinner hidden={!isLoading} /> Start Coding
+								<ButtonLoading isLoading={isLoading} />
+								<span hidden={isLoading}>Start Coding</span>
 							</button>
 
 							<hr className="box-hr" />
 							<p className="mb-0" style={{ fontSize: 16 }}>
-								<Link to="/register">Register</Link>{" "}
 								<Link
-									to="/reset-password"
-									style={{ float: "right" }}
+									to="/register"
+									style={{ color: "#424242" }}
 								>
-									Reset Password
+									Don't have an account? Register here
 								</Link>
 							</p>
 							{/* <h5 className="text-center hint mb-0">Follow us on twitter</h5> */}
@@ -103,10 +111,6 @@ const Login = props => {
 					</div> */}
 				</div>
 			</div>
-			<hr className="bottomline mt-5"></hr>
-			<p className="text-center">
-				Developed under the good works of DSC KIET
-			</p>
 		</div>
 	);
 };

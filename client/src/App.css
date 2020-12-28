@@ -1,42 +1,63 @@
 @font-face {
-  font-family: GoogleSansBd;
-  src: url("./utils/fonts/GoogleSansDisplay-Bold-v1.27.ttf");
+	font-family: GoogleSansBd;
+	src: url("./utils/fonts/GoogleSansDisplay-Bold-v1.27.ttf");
 }
 
 @font-face {
-  font-family: GoogleSansRg;
-  src: url("./utils/fonts/GoogleSansDisplay-Regular-v1.27.ttf");
+	font-family: GoogleSansRg;
+	src: url("./utils/fonts/GoogleSansDisplay-Regular-v1.27.ttf");
 }
 
 @font-face {
-  font-family: GoogleSansMd;
-  src: url("./utils/fonts/GoogleSansDisplay-Medium-v1.27.ttf");
+	font-family: GoogleSansMd;
+	src: url("./utils/fonts/GoogleSansDisplay-Medium-v1.27.ttf");
 }
 
 body {
-  font-family: GoogleSansRg;
-  /* background-color: #3c83da; */
-  overflow-x: hidden;
-  background-color: #f9f9f9;
+	font-family: GoogleSansRg;
+	/* background-color: #3c83da; */
+	overflow-x: hidden;
+	/* background-color: #f9f9f9; */
 }
 
 .fontBd {
-  font-family: GoogleSansBd;
+	font-family: GoogleSansBd;
 }
 
 .fontMd {
-  font-family: GoogleSansMd;
+	font-family: GoogleSansMd;
 }
 
 .fontRG {
-  font-family: GoogleSansRg;
+	font-family: GoogleSansRg;
 }
 
 .register-box {
-  color: white;
-  border-radius: 4px;
-  border: 0;
-  background-color: #3c83da;
-  /* box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23); */
-  transition: 0.2s all ease;
+	color: #565859;
+	border-radius: 4px;
+	border: 0;
+	/* background-color: #3c83da; */
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23);
+	transition: 0.2s all ease;
+}
+
+.register-box input {
+	border-radius: 2px;
+}
+
+.navlink {
+	color: #707070 !important;
+	font-family: GoogleSansMd;
+	margin-right: 12px;
+}
+
+.navlink:hover {
+	color: #565859;
+}
+
+.tag-primary {
+	border-radius: 4px;
+	font-size: 12px;
+	color: #ffffff;
+	background-color: #cbe6f6;
 }

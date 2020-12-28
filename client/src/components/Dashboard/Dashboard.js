@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
 import { Link } from "react-router-dom";
-import {
-	FaKeyboard,
-	FaLock,
-	FaGhost,
-	FaSpinner,
-	FaUserSecret
-} from "react-icons/fa";
-import { dashboardService } from "../../utils/Services";
+import { FaKeyboard, FaLock } from "react-icons/fa";
+
+import { dashboardService } from "../../utils/services/mainService";
 import authCheck from "../authCheck";
+import Loading from "../Loading";
+import Navbar from "./Navbar";
 
 const Dashboard = props => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -33,14 +30,18 @@ const Dashboard = props => {
 		}
 		(async () => {
 			const res = await dashboardService();
+
+			if (res.message === "success") {
+				setIsLoading(false);
+			}
 			if (props.location.state) {
 				if (props.location.state.update) {
 				}
 			}
-			let laddersArr = Object.keys(res.ladderDetails).map(
+			let laddersArr = Object.keys(res.data.ladderDetails).map(
 				(ladder, id) => {
 					return {
-						details: Object.values(res.ladderDetails)[id],
+						details: Object.values(res.data.ladderDetails)[id],
 						name: ladder
 					};
 				}
@@ -55,14 +56,14 @@ const Dashboard = props => {
 
 			// await ladderService({ div: "2, A" });
 			setIsLoading(false);
-			if (res.most.productiveDay === "Insufficient data") {
+			if (res.data.most.productiveDay === "Insufficient data") {
 				setIsSuffData(true);
 			} else {
 				setStats({
-					productiveDay: res.most.productiveDay,
-					productiveTimeOfDay: res.most.productiveTimeOfDay,
-					usedLanguage: res.most.usedLanguage,
-					joined: res.createdAt,
+					productiveDay: res.data.most.productiveDay,
+					productiveTimeOfDay: res.data.most.productiveTimeOfDay,
+					usedLanguage: res.data.most.usedLanguage,
+					joined: res.data.createdAt,
 					problemsSolved
 				});
 			}
@@ -75,51 +76,16 @@ const Dashboard = props => {
 	// };
 	return (
 		<div className="container">
-			<div
-				className="loader text-center"
-				style={{
-					marginTop: "16em"
-				}}
-				hidden={!isLoading}
-			>
-				<p className="text-center">
-					<FaSpinner />
-					<br />
-					<span className="small">Loading</span>
-				</p>
-			</div>
+			<Loading isLoading={isLoading} />
 			<div className="section" hidden={isLoading}>
-				<h4 className="mt-5 fontBd">
-					Dashboard
-					{/* <span
-						className="stalk-friend-dashboard"
-						onClick={handleStalkDost}
-					>
-						<FaGhost /> Stalk your friend
-					</span> */}
-					<span className="profile-section">
-						<span>
-							<FaUserSecret />{" "}
-							{user.isLoggedIn ? user.user.handle : null}
-						</span>{" "}
-						<button
-							onClick={() => {
-								localStorage.clear();
-								props.history.push("/login");
-							}}
-						>
-							Logout
-						</button>
-					</span>
-				</h4>
-				<hr />
-				<div className="row mt-5">
-					<div className="col-md-9">
+				<Navbar />
+				<div className="row mt-4">
+					<div className="col-md-12">
 						<h5 className="fontMd">Codeforces Ladders</h5>
 						<div className="row mt-4">
 							{ladders.map((ladder, idx) => {
 								return (
-									<div className="col-md-6 mb-4" key={idx}>
+									<div className="col-md-4 mb-2" key={idx}>
 										<div
 											className={`card ladder-card p-4 ${
 												ladder.details.unlocked === true
@@ -172,7 +138,7 @@ const Dashboard = props => {
 							})}
 						</div>
 					</div>
-					<div className="col-md-3">
+					{/* <div className="col-md-3">
 						<h5 className="fontMd">Stats</h5>
 
 						<div className="stats-wrapper mt-4" hidden={isSuffData}>
@@ -227,7 +193,7 @@ const Dashboard = props => {
 							click on unlock, to unlock that particular ladder,
 							and we will add them to your statistics.
 						</div>
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</div>
